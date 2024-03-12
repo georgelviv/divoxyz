@@ -1,15 +1,5 @@
 # dyvoxyz
 
-To install dependencies:
+Inspired by
 
-```bash
-bun install
-```
-
-To run:
-
-```bash
-bun run index.ts
-```
-
-This project was created using `bun init` in bun v1.0.25. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts
