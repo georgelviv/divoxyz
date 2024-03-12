@@ -3,8 +3,9 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build"
+    "dev": "vite --config configs/vite.config.ts",
+    "build": "vite build --config configs/vite.config.ts",
+    "deploy": "firebase deploy --only hosting"
   },
   "devDependencies": {
     "@types/bun": "latest",
