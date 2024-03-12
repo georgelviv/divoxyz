@@ -10,7 +10,5 @@ https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts
 
 ## TODO
 
-- add github actions
-- add google fonts
 - add routing
 - prod build
