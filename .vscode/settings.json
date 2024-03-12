@@ -1,1 +1,15 @@
-{}
+{
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    "**/.firebase": true,
+    "**/node_modules": true,
+    "**/.github": true,
+    "**/.husky": true,
+    "**/dist": true
+  }
+}
