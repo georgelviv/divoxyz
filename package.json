@@ -5,19 +5,30 @@
   "scripts": {
     "dev": "vite --config configs/vite.config.ts",
     "build": "vite build --config configs/vite.config.ts",
+    "lint": "eslint -c configs/.eslintrc.cjs  --ext ts,tsx .",
+    "prettier": "bunx prettier --config configs/.prettierrc . --write",
+    "prettier:check": "bunx prettier --config configs/.prettierrc . --check",
+    "check": "bun run lint && bun run prettier:check",
     "deploy": "firebase deploy --only hosting"
   },
   "devDependencies": {
     "@types/bun": "latest",
     "@types/react": "^18.2.65",
     "@types/react-dom": "^18.2.21",
+    "@typescript-eslint/eslint-plugin": "^7.2.0",
+    "@typescript-eslint/parser": "^7.2.0",
     "@vitejs/plugin-react": "^4.2.1",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-react-hooks": "latest",
+    "eslint-plugin-react-refresh": "^0.4.5",
+    "prettier": "^3.2.5",
     "vite": "^5.1.6"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
   "dependencies": {
+    "eslint": "^8.57.0",
     "firebase": "^10.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
