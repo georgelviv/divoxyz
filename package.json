@@ -9,7 +9,8 @@
     "prettier": "bunx prettier --config configs/.prettierrc . --write",
     "prettier:check": "bunx prettier --config configs/.prettierrc . --check",
     "check": "bun run lint && bun run prettier:check",
-    "deploy": "firebase deploy --only hosting"
+    "deploy": "firebase deploy --only hosting",
+    "prepare": "husky"
   },
   "devDependencies": {
     "@types/bun": "latest",
@@ -21,6 +22,7 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-react-hooks": "latest",
     "eslint-plugin-react-refresh": "^0.4.5",
+    "husky": "^9.0.11",
     "lightningcss": "^1.24.0",
     "prettier": "^3.2.5",
     "vite": "^5.1.6"

@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   root: resolve(__dirname, '../src'),
   build: {
-    outDir: resolve(__dirname, '../dist'),
+    outDir: resolve(__dirname, '../dist')
   },
   css: {
     transformer: 'lightningcss'
