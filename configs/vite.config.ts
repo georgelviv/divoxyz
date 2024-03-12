@@ -9,6 +9,6 @@ export default defineConfig({
     outDir: resolve(__dirname, '../dist')
   },
   css: {
-    transformer: 'lightningcss'
+    postcss: resolve(__dirname)
   }
 });
