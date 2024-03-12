@@ -9,6 +9,7 @@ https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts
 `$ firebase deploy --only hosting` - deploy
 
 ## TODO
+
 - add github actions
 - add google fonts
 - add routing
