@@ -1,25 +1,37 @@
 {
   "name": "dyvoxyz",
-  "module": "index.ts",
   "type": "module",
+  "directories": {
+    "serve": "dist/client"
+  },
+  "files": [
+    "dist",
+    "server.js"
+  ],
+  "main": "server.js",
   "scripts": {
-    "dev": "vite --config configs/vite.config.ts",
-    "build": "vite build --config configs/vite.config.ts",
+    "dev": "node index",
+    "build": "bun run build:client && bun run build:server",
+    "build:client": "vite build --ssrManifest --config configs/vite.config.ts --outDir dist/client",
+    "build:server": "vite build --ssr src/entry-server.tsx --config configs/vite.config.ts --outDir dist/server",
     "lint": "eslint -c configs/.eslintrc.cjs  --ext ts,tsx .",
-    "prettier": "bunx prettier --config configs/.prettierrc . --write",
+    "prettier:write": "bunx prettier --config configs/.prettierrc . --write",
     "prettier:check": "bunx prettier --config configs/.prettierrc . --check",
     "check": "bun run lint && bun run prettier:check",
     "deploy": "firebase deploy --only hosting",
+    "preview": "cross-env NODE_ENV=production node index",
     "prepare": "husky"
   },
   "devDependencies": {
     "@types/bun": "latest",
+    "@types/express": "^4.17.21",
     "@types/react": "^18.2.65",
     "@types/react-dom": "^18.2.21",
     "@typescript-eslint/eslint-plugin": "^7.2.0",
     "@typescript-eslint/parser": "^7.2.0",
     "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.4.18",
+    "cross-env": "^7.0.3",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-react-hooks": "latest",
     "eslint-plugin-react-refresh": "^0.4.5",
@@ -33,9 +45,12 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
+    "compression": "^1.7.4",
     "eslint": "^8.57.0",
+    "express": "^4.18.3",
     "firebase": "^10.8.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "sirv": "^2.0.4"
   }
 }

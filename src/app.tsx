@@ -1,3 +1,5 @@
+import './styles/main.scss';
+
 const App = () => {
   return (
     <main className="bg-slate-100 h-full p-5">
