@@ -10,7 +10,7 @@
   ],
   "main": "server.js",
   "scripts": {
-    "dev": "node index",
+    "dev": "node server",
     "build": "bun run build:client && bun run build:server",
     "build:client": "vite build --ssrManifest --config configs/vite.config.ts --outDir dist/client",
     "build:server": "vite build --ssr src/entry-server.tsx --config configs/vite.config.ts --outDir dist/server",
@@ -19,7 +19,7 @@
     "prettier:check": "bunx prettier --config configs/.prettierrc . --check",
     "check": "bun run lint && bun run prettier:check",
     "deploy": "firebase deploy --only hosting",
-    "preview": "cross-env NODE_ENV=production node index",
+    "preview": "cross-env NODE_ENV=production node server",
     "prepare": "husky"
   },
   "devDependencies": {
