@@ -1,19 +1,11 @@
 # dyvoxyz
 
-Inspired by
-
-https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts
-
-SSR
-https://github.com/bluwy/create-vite-extra/tree/master/template-ssr-react
-
 ## Commands
 
 `$ firebase deploy --only hosting` - deploy
 
 ## TODO
 
-- improve server.js
 - migrate to ssr streams
 - add routing
 - prod build
@@ -21,3 +13,9 @@ https://github.com/bluwy/create-vite-extra/tree/master/template-ssr-react
 ## IDEAS
 
 - Migrate from POSTCSS to lightningcss (depending on tailwind)
+
+## Inspiration
+
+- https://ui.shadcn.com/
+- SSR template https://github.com/bluwy/create-vite-extra/tree/master/template-ssr-react
+-
