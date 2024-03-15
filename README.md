@@ -16,6 +16,11 @@
 
 ## Inspiration
 
+### UI
+
 - https://ui.shadcn.com/
+- https://ui.aceternity.com/
+
+### Coding
+
 - SSR template https://github.com/bluwy/create-vite-extra/tree/master/template-ssr-react
--
