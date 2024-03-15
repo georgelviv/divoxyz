@@ -1,12 +1,16 @@
 import fs from 'node:fs/promises';
+import { resolve } from 'path';
 import express from 'express';
 
-export async function app() {
-  const templateHtml = await fs.readFile('./dist/client/index.html', 'utf-8');
-  const ssrManifest = await fs.readFile(
-    './dist/client/.vite/ssr-manifest.json',
-    'utf-8'
-  );
+export async function app(distPath) {
+  const serverPath = resolve(distPath, './server');
+  const clientPath = resolve(distPath, './client');
+  const indexHtmlPath = resolve(clientPath, './index.html');
+  const manifestPath = resolve(clientPath, './.vite/ssr-manifest.json');
+  const entryServerPath = resolve(serverPath, 'entry-server.js');
+
+  const templateHtml = await fs.readFile(indexHtmlPath, 'utf-8');
+  const ssrManifest = await fs.readFile(manifestPath, 'utf-8');
 
   // Create http server
   const app = express();
@@ -14,7 +18,7 @@ export async function app() {
   const compression = (await import('compression')).default;
   const sirv = (await import('sirv')).default;
   app.use(compression());
-  app.use('/', sirv('./dist/client', { extensions: [] }));
+  app.use('/', sirv(clientPath, { extensions: [] }));
 
   app.use('*', async (req, res) => {
     try {
@@ -23,7 +27,7 @@ export async function app() {
       let template;
       let render;
       template = templateHtml;
-      render = (await import('../dist/server/entry-server.js')).render;
+      render = (await import(entryServerPath)).render;
 
       const rendered = await render(url, ssrManifest);
 

@@ -10,7 +10,7 @@
     "**/node_modules": true,
     "**/.github": false,
     "**/.husky": true,
-    "**/dist": true
+    "**/dist": false
   },
   "cSpell.words": [
     "bunx",
