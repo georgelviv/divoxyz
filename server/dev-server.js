@@ -19,7 +19,7 @@ export async function app() {
 
   app.use('*', async (req, res) => {
     try {
-      const url = req.originalUrl.replace('/', '');
+      const url = req.originalUrl;
 
       const rawTemplate = await fs.readFile('./index.html', 'utf-8');
       const template = await vite.transformIndexHtml(url, rawTemplate);

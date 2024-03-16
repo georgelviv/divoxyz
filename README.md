@@ -8,7 +8,7 @@
 
 - migrate to ssr streams
 - add routing
-- prod build
+- brotli/gzip
 
 ## IDEAS
 

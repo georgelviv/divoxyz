@@ -22,7 +22,7 @@ export async function app(distPath) {
 
   app.use('*', async (req, res) => {
     try {
-      const url = req.originalUrl.replace('/', '');
+      const url = req.originalUrl;
 
       let template;
       let render;
