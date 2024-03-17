@@ -6,8 +6,10 @@
 
 ## TODO
 
+- code splitting
+- post details
+- full screen?
 - migrate to ssr streams
-- add routing
 - brotli/gzip
 
 ## IDEAS

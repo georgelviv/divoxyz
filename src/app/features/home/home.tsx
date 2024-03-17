@@ -1,6 +1,6 @@
 import { Posts } from './components/posts';
 
-const posts: string[] = ['First', 'Second'];
+const posts: string[] = ['First', 'Second', 'Three', 'Four', 'Five', 'Six'];
 
 const Home = () => {
   return (
