@@ -9,6 +9,9 @@ jobs:
       - run: bun install
       - run: bun run check
       - run: bun run build
+      - name: Install deps for functions
+        working-directory: functions
+        run: bun install
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
         with:
