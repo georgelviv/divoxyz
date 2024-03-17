@@ -9,11 +9,9 @@ jobs:
       - run: bun install
       - run: bun run check
       - run: bun run build
-      - uses: FirebaseExtended/action-hosting-deploy@v0
+      - name: Deploy to Firebase
+        uses: w9jds/firebase-action@master
         with:
-          repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_DYVOXYZ }}'
-          projectId: dyvoxyz
-          channelId: live
+          args: deploy
         env:
-          NODE_ENV: production
+          GCP_SA_KEY: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_DYVOXYZ }}

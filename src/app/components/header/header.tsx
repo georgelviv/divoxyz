@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 
 const Header = () => {
   return (
-    <header>
+    <header className="mb-5">
       <motion.h1
         initial={{ y: -50, opacity: 0, scale: 0.8 }}
         animate={{ y: 0, opacity: 1, scale: 1 }}
