@@ -8,6 +8,11 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "moduleResolution": "bundler",
-    "jsx": "react-jsx"
-  }
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "@features/*": ["./src/app/features/*"]
+    }
+  },
+  "include": ["./src"]
 }
