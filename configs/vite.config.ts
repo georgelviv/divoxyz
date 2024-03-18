@@ -18,7 +18,8 @@ export default defineConfig({
         new URL('../src/app/features', import.meta.url)
       ),
       '@core': fileURLToPath(new URL('../src/app/core', import.meta.url)),
-      '@posts': fileURLToPath(new URL('../src/app/posts', import.meta.url))
+      '@posts': fileURLToPath(new URL('../src/app/posts', import.meta.url)),
+      '@shared': fileURLToPath(new URL('../src/app/shared', import.meta.url))
     }
   }
 });

@@ -1,5 +1,5 @@
-import { Body } from './app/components/body';
-import { Header } from './app/components/header';
+import { Body } from '@core/components/body';
+import { Header } from '@core/components/header';
 import './styles/main.scss';
 
 const App = () => {

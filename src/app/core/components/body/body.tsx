@@ -1,6 +1,6 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { Home } from '@features/home';
 import { Post } from '@features/post';
+import { Home } from '@features/home';
 
 const Body = () => {
   return (
@@ -13,5 +13,7 @@ const Body = () => {
     </div>
   );
 };
+
+Body.displayName = 'Body';
 
 export default Body;
