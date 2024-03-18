@@ -15,6 +15,11 @@ const Posts = ({ posts }: PostsProps) => {
       'absolute inset-0 h-full w-full',
       'bg-neutral-200 dark:bg-slate-300/[0.8] block rounded-3xl'
     );
+
+    const wrapperClass = classNames(
+      'relative group block p-2 h-full w-full hover:cursor-pointer'
+    );
+
     return (
       <div
         key={index}
@@ -24,7 +29,7 @@ const Posts = ({ posts }: PostsProps) => {
         onMouseLeave={() => {
           setHoveredIndex(null);
         }}
-        className="relative group block p-2 h-full w-full"
+        className={wrapperClass}
       >
         <AnimatePresence>
           {hoveredIndex === index && (

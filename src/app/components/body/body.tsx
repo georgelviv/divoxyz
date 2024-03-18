@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { Home } from '@features/home';
 
 const Body = () => {
@@ -6,7 +6,8 @@ const Body = () => {
     <div>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/about" element={<div>About</div>} />
+        <Route path="/post/:postId" element={<div>About</div>} />
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </div>
   );

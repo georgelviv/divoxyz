@@ -23,8 +23,7 @@ export async function app() {
 
       const rawTemplate = await fs.readFile('./index.html', 'utf-8');
       const template = await vite.transformIndexHtml(url, rawTemplate);
-      const render = (await vite.ssrLoadModule('./src/entry-server.tsx'))
-        .render;
+      const render = (await vite.ssrLoadModule('/src/entry-server.tsx')).render;
 
       const rendered = await render(url);
 
