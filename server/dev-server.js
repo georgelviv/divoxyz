@@ -2,6 +2,7 @@ import fs from 'node:fs/promises';
 import express from 'express';
 import { resolve } from 'path';
 import { fileURLToPath } from 'url';
+import { createFetchRequest } from './request.js';
 
 export async function app() {
   const { createServer } = await import('vite');
@@ -20,12 +21,13 @@ export async function app() {
   app.use('*', async (req, res) => {
     try {
       const url = req.originalUrl;
+      const fetchRequest = createFetchRequest(req, res);
 
       const rawTemplate = await fs.readFile('./index.html', 'utf-8');
       const template = await vite.transformIndexHtml(url, rawTemplate);
       const render = (await vite.ssrLoadModule('/src/entry-server.tsx')).render;
 
-      const rendered = await render(url);
+      const rendered = await render(fetchRequest);
 
       const html = template
         .replace(`<!--app-head-->`, rendered.head ?? '')

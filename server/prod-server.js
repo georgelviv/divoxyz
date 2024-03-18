@@ -1,6 +1,7 @@
 import fs from 'node:fs/promises';
 import { resolve } from 'path';
 import express from 'express';
+import { createFetchRequest } from './request.js';
 
 export async function app(distPath) {
   const serverPath = resolve(distPath, './server');
@@ -22,14 +23,10 @@ export async function app(distPath) {
 
   app.use('*', async (req, res) => {
     try {
-      const url = req.originalUrl;
-
-      let template;
-      let render;
-      template = templateHtml;
-      render = (await import(entryServerPath)).render;
-
-      const rendered = await render(url, ssrManifest);
+      const template = templateHtml;
+      const fetchRequest = createFetchRequest(req, res);
+      const render = (await import(entryServerPath)).render;
+      const rendered = await render(fetchRequest, ssrManifest);
 
       const html = template
         .replace(`<!--app-head-->`, rendered.head ?? '')

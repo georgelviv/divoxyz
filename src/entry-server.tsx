@@ -1,14 +1,25 @@
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
-import App from './app';
-import { StaticRouter } from 'react-router-dom/server';
+import {
+  StaticRouterProvider,
+  createStaticHandler,
+  createStaticRouter
+} from 'react-router-dom/server';
+import { routes } from './routes';
 
-export function render(url: string) {
+export async function render(fetchRequest: Request) {
+  const { query, dataRoutes } = createStaticHandler(routes);
+  const context = await query(fetchRequest);
+
+  if (context instanceof Response) {
+    throw context;
+  }
+
+  const router = createStaticRouter(dataRoutes, context);
+
   const html = ReactDOMServer.renderToString(
     <React.StrictMode>
-      <StaticRouter location={url}>
-        <App />
-      </StaticRouter>
+      <StaticRouterProvider router={router} context={context} />
     </React.StrictMode>
   );
 
