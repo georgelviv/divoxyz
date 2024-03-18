@@ -1,19 +1,21 @@
 import classNames from 'classnames';
 
-interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
+interface CardProps {
   title: string;
+  description: string;
 }
 
-const Card = ({ title, ...props }: CardProps) => {
+const Card = ({ title, description }: CardProps) => {
   const divClass: string = classNames(
     'rounded-2xl h-full w-full p-4 overflow-hidden',
-    'bg-slate-50 border border-transparent dark:border-white/[0.2]',
-    'group-hover:border-slate-300 relative z-20'
+    'bg-background-secondary border border-transparent dark:border-white/[0.2]',
+    'relative z-20 border-primary'
   );
 
   return (
-    <div className={divClass} {...props}>
-      {title}
+    <div className={divClass}>
+      <div className="mb-5 text-primary font-medium text-xl">{title}</div>
+      <div className="text-sm text-secondary">{description}</div>
     </div>
   );
 };

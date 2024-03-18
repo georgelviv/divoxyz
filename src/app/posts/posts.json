@@ -1,0 +1,7 @@
+[
+  {
+    "title": "WebSerial",
+    "id": "web-serial",
+    "description": "Read and write serial (UART) in browser demo"
+  }
+]

@@ -1,6 +1,5 @@
 import { Posts } from './components/posts';
-
-const posts: string[] = ['First', 'Second', 'Three', 'Four', 'Five', 'Six'];
+import posts from '@posts/posts.json';
 
 const Home = () => {
   return (

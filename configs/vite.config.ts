@@ -16,7 +16,9 @@ export default defineConfig({
     alias: {
       '@features': fileURLToPath(
         new URL('../src/app/features', import.meta.url)
-      )
+      ),
+      '@core': fileURLToPath(new URL('../src/app/core', import.meta.url)),
+      '@posts': fileURLToPath(new URL('../src/app/posts', import.meta.url))
     }
   }
 });
