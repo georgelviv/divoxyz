@@ -6,7 +6,6 @@
 
 ## TODO
 
-- https://reactrouter.com/en/main/routers/picking-a-router#using-v64-data-apis
 - code splitting
 - post details
 - full screen?
