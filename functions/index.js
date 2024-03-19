@@ -7,12 +7,17 @@ import { app as serverApp } from './server/prod-server.js';
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 const distPath = resolve(__dirname, './dist');
 
-export const app = onRequest((req, res) => {
-  return serverApp(distPath)
-    .then((app) => {
-      return app(req, res);
-    })
-    .catch((e) => {
-      log(e);
-    });
-});
+export const app = onRequest(
+  {
+    region: 'europe-west1'
+  },
+  (req, res) => {
+    return serverApp(distPath)
+      .then((app) => {
+        return app(req, res);
+      })
+      .catch((e) => {
+        log(e);
+      });
+  }
+);
