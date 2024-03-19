@@ -8,7 +8,7 @@
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log",
-    "copy": "cp -r ../dist/ ./dist && cp ../server/prod-server.js ./prod-server.js"
+    "copy": "cp -r ../dist/ ./dist && cp -r ../server/ ./server"
   },
   "engines": {
     "node": "18"
