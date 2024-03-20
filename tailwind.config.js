@@ -8,7 +8,8 @@ export default {
       primary: '#334155', //SLATE 800,
       secondary: '#334155', //SLATE 700
       ['background-primary']: '#cbd5e1', //SLATE 300
-      ['background-secondary']: '#f8fafc', //SLATE 50
+      ['background-secondary']: '#f8fafc', //SLATE 50,
+      white: '#ffffff',
       slate: colors.slate
     },
     extend: {}
