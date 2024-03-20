@@ -1,6 +1,9 @@
 import { ErrorBoundary } from '@core/components/error-boundary';
 import App from './app';
-import { Navigate, Route, createRoutesFromElements } from 'react-router-dom';
+import { Route, createRoutesFromElements } from 'react-router-dom';
+import posts from '@posts/posts.json';
+import { Post } from '@core/models/core.models';
+import { NotFound } from '@core/components/not-found';
 
 export const routes = createRoutesFromElements(
   <Route element={<App />}>
@@ -9,11 +12,19 @@ export const routes = createRoutesFromElements(
       errorElement={<ErrorBoundary />}
       lazy={() => import('@features/home')}
     />
-    <Route
-      path="/post/:postId"
-      errorElement={<ErrorBoundary />}
-      lazy={() => import('@features/post')}
-    />
-    <Route path="*" element={<Navigate to="/" />} />
+    <Route path="/post">
+      {posts.map((post: Post) => {
+        // `@posts/${post.id}` not supported by Vite
+        return (
+          <Route
+            key={post.id}
+            path={post.id}
+            errorElement={<ErrorBoundary />}
+            lazy={() => import(`./app/posts/${post.id}/index.ts`)}
+          />
+        );
+      })}
+    </Route>
+    <Route path="*" element={<NotFound />} />
   </Route>
 );

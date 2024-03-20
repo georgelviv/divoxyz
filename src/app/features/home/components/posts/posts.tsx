@@ -64,6 +64,8 @@ const PostItem = ({
   );
 };
 
+PostItem.displayName = 'PostItem';
+
 const Posts = ({ posts }: PostsProps) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
@@ -83,5 +85,7 @@ const Posts = ({ posts }: PostsProps) => {
     </div>
   );
 };
+
+Posts.displayName = 'Posts';
 
 export default Posts;

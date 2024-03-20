@@ -12,7 +12,8 @@
 
 ## IDEAS
 
-- Migrate from POSTCSS to lightningcss (depending on tailwind)
+- Migrate from POSTCSS to lightningcss (depending on tailwind (No it was pushed back to 3.5 (or later)))
+- Use renderToPipeableStream with Suspense (currently not supported by Vite)
 
 ## Inspiration
 

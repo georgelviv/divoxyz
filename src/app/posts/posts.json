@@ -3,5 +3,10 @@
     "title": "WebSerial",
     "id": "web-serial",
     "description": "Read and write serial (UART) in browser demo"
+  },
+  {
+    "title": "WavePattern",
+    "id": "wave-pattern",
+    "description": "Wave Pattern animation with p5.js"
   }
 ]

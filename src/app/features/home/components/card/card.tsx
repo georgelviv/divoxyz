@@ -20,4 +20,6 @@ const Card = ({ title, description }: CardProps) => {
   );
 };
 
+Card.displayName = 'Card';
+
 export default Card;
