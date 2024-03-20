@@ -9,7 +9,7 @@ interface Props extends ComponentProps<'button'> {
 
 const Button = ({ children, scaleAnimation, ...rest }: Props) => {
   const cssClasses = classNames(
-    'rounded-md border border-primary text-sm',
+    'rounded-md border border-primary text-sm bg-background',
     'text-primary font-medium px-4 py-2 hover:cursor-pointer'
   );
 

@@ -9,6 +9,7 @@ export default {
       secondary: '#334155', //SLATE 700
       ['background-primary']: '#cbd5e1', //SLATE 300
       ['background-secondary']: '#f8fafc', //SLATE 50,
+      ['background']: '#f1f5f9', //SLATE 100
       white: '#ffffff',
       slate: colors.slate
     },
