@@ -4,14 +4,14 @@ import { resolve } from 'path';
 import { fileURLToPath } from 'url';
 import { createFetchRequest } from './request.js';
 
-export async function app() {
+export async function app(_, certs) {
   const { createServer } = await import('vite');
   const __dirname = fileURLToPath(new URL('.', import.meta.url));
 
   const app = express();
   const vite = await createServer({
     configFile: resolve(__dirname, '..', 'configs/vite.config.ts'),
-    server: { middlewareMode: true },
+    server: { middlewareMode: true, https: certs},
     appType: 'custom',
     base: resolve(__dirname, 'src')
   });

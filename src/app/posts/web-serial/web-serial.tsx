@@ -1,4 +1,5 @@
 import { Post } from '@core/components/post';
+import Demo from './demo';
 
 const WebSerial = () => {
   const article = (
@@ -9,8 +10,7 @@ const WebSerial = () => {
     </div>
   );
 
-  const demo = <div>Web serial demo</div>;
-  return <Post article={article} demo={demo} />;
+  return <Post article={article} demo={<Demo />} />;
 };
 
 WebSerial.displayName = 'WebSerial';

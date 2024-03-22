@@ -6,3 +6,5 @@ firebase-debug.log
 
 configs/dns.txt
 ui-debug.log
+
+certs/
