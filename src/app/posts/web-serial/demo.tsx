@@ -7,7 +7,8 @@ const messageStyle = classNames('text-4xl text-center text-primary');
 
 const Demo = () => {
   const [checked, setChecked] = useState<boolean>(false);
-  const [webSerialIsSupported, setWebSerialIsSupported] = useState<boolean>(false);
+  const [webSerialIsSupported, setWebSerialIsSupported] =
+    useState<boolean>(false);
 
   useEffect(() => {
     setChecked(true);
@@ -15,19 +16,17 @@ const Demo = () => {
   }, []);
 
   if (!checked) {
-    return (<div className={messageStyle}>Web Serial Not checked</div>);
+    return <div className={messageStyle}>Web Serial Not checked</div>;
   }
 
   if (!webSerialIsSupported) {
-    return (
-      <div className={messageStyle}>Web Serial not supported</div>
-    );
+    return <div className={messageStyle}>Web Serial not supported</div>;
   }
 
   const handleConnectToUSB = async () => {
     try {
       const port = await navigator.serial.requestPort();
-      await port.open({ baudRate: 9600 })
+      await port.open({ baudRate: 9600 });
       console.log(port);
     } catch (e) {
       console.log(e);
@@ -41,6 +40,6 @@ const Demo = () => {
   );
 };
 
-Demo.displayName= 'Demo';
+Demo.displayName = 'Demo';
 
 export default Demo;

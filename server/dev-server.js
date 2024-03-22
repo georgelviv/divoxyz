@@ -11,7 +11,7 @@ export async function app(_, certs) {
   const app = express();
   const vite = await createServer({
     configFile: resolve(__dirname, '..', 'configs/vite.config.ts'),
-    server: { middlewareMode: true, https: certs},
+    server: { middlewareMode: true, https: certs },
     appType: 'custom',
     base: resolve(__dirname, 'src')
   });

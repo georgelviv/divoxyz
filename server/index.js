@@ -10,9 +10,15 @@ const port = process.env.PORT || 5173;
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 const distPath = resolve(__dirname, '../dist');
 
-const privateKey  = fs.readFileSync(resolve(__dirname, '../certs/server.key'), 'utf8');
-const certificate = fs.readFileSync(resolve(__dirname, '../certs/server.crt'), 'utf8');
-const certs = {key: privateKey, cert: certificate};
+const privateKey = fs.readFileSync(
+  resolve(__dirname, '../certs/server.key'),
+  'utf8'
+);
+const certificate = fs.readFileSync(
+  resolve(__dirname, '../certs/server.crt'),
+  'utf8'
+);
+const certs = { key: privateKey, cert: certificate };
 
 const app = isProduction ? prodApp : devApp;
 

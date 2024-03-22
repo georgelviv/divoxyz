@@ -13,7 +13,6 @@ export async function app(distPath) {
   const templateHtml = await fs.readFile(indexHtmlPath, 'utf-8');
   const ssrManifest = await fs.readFile(manifestPath, 'utf-8');
 
-  // Create http server
   const app = express();
 
   const compression = (await import('compression')).default;
