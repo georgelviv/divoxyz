@@ -15,7 +15,8 @@
       "@features/*": ["./src/app/features/*"],
       "@posts/*": ["./src/app/posts/*"],
       "@shared/*": ["./src/app/shared/*"]
-    }
+    },
+    "strictPropertyInitialization": false
   },
   "include": ["./src"]
 }

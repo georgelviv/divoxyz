@@ -1,9 +1,27 @@
 import { Post } from '@core/components/post';
+import { useEffect, useRef } from 'react';
+import { WavePatternVisual } from './wave-pattern.visual';
+
+let isInitiated: boolean = false;
 
 const WavePattern = () => {
-  const article = <div>Wave pattern article</div>;
+  const canvasRef = useRef(null);
 
-  const demo = <div>Wave pattern demo</div>;
+  useEffect(() => {
+    if (isInitiated) {
+      return;
+    }
+    isInitiated = true;
+    new WavePatternVisual(canvasRef.current!);
+  }, []);
+
+  const article = <div>Wave pattern article</div>;
+  const demo = (
+    <div className="flex items-center h-full">
+      <canvas className="aspect-auto w-full" ref={canvasRef} />
+    </div>
+  );
+
   return <Post article={article} demo={demo} />;
 };
 

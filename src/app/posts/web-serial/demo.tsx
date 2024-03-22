@@ -1,43 +1,85 @@
 import { useEffect, useState } from 'react';
-import { checkIfWebSerialIsSupported } from './utils';
+import { webSerialService } from './web-serial.service';
 import classNames from 'classnames';
 import { Button } from '@shared/button';
 
 const messageStyle = classNames('text-4xl text-center text-primary');
 
-const Demo = () => {
-  const [checked, setChecked] = useState<boolean>(false);
-  const [webSerialIsSupported, setWebSerialIsSupported] =
-    useState<boolean>(false);
+enum ConnectionStatus {
+  initial,
+  connecting,
+  error,
+  connected
+}
 
-  useEffect(() => {
-    setChecked(true);
-    setWebSerialIsSupported(checkIfWebSerialIsSupported());
-  }, []);
+enum CheckStatus {
+  initial,
+  supported,
+  notSupported
+}
 
-  if (!checked) {
-    return <div className={messageStyle}>Web Serial Not checked</div>;
+interface DemoState {
+  check: CheckStatus;
+  connection: ConnectionStatus;
+}
+
+const CheckStatusLabel = ({ checkStatus }: { checkStatus: CheckStatus }) => {
+  if (checkStatus === CheckStatus.initial) {
+    return (
+      <div className={messageStyle}>Checking if Web Serial is supported</div>
+    );
   }
 
-  if (!webSerialIsSupported) {
+  if (checkStatus === CheckStatus.notSupported) {
     return <div className={messageStyle}>Web Serial not supported</div>;
   }
 
+  return '';
+};
+
+const Demo = () => {
+  const [state, setState] = useState<DemoState>({
+    check: CheckStatus.initial,
+    connection: ConnectionStatus.initial
+  });
+
+  useEffect(() => {
+    const isSupported = webSerialService.checkIfWebSerialIsSupported();
+    const status = isSupported
+      ? CheckStatus.supported
+      : CheckStatus.notSupported;
+    setState({ ...state, check: status });
+  }, []);
+
   const handleConnectToUSB = async () => {
-    try {
-      const port = await navigator.serial.requestPort();
-      await port.open({ baudRate: 9600 });
-      console.log(port);
-    } catch (e) {
-      console.log(e);
+    const isConnected = await webSerialService.init();
+    if (!isConnected) {
+      setState({ ...state, connection: ConnectionStatus.error });
     }
   };
 
-  return (
-    <div className={messageStyle}>
-      <Button onClick={handleConnectToUSB}>Connect to USB</Button>
-    </div>
-  );
+  if (state.check !== CheckStatus.supported) {
+    return <CheckStatusLabel checkStatus={state.check} />;
+  }
+
+  if (
+    [ConnectionStatus.initial, ConnectionStatus.error].includes(
+      state.connection
+    )
+  ) {
+    return (
+      <div className={messageStyle}>
+        {state.connection === ConnectionStatus.error && (
+          <div>Try again to connect</div>
+        )}
+        <Button onClick={handleConnectToUSB}>Connect to port</Button>
+      </div>
+    );
+  }
+
+  webSerialService.read();
+
+  return <div className={messageStyle}>Device is connected</div>;
 };
 
 Demo.displayName = 'Demo';
