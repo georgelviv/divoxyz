@@ -53,6 +53,8 @@ export class WavePatternVisual {
   private cols: number = 20;
   private rows: number = 20;
 
+  private padding: number = 20;
+
   private height: number;
   private width: number;
 
@@ -61,25 +63,30 @@ export class WavePatternVisual {
   private canva: Canva;
 
   constructor(canvasEl: HTMLCanvasElement) {
-    this.canva = new Canva(canvasEl);
-    this.height = canvasEl.height;
-    this.width = canvasEl.width;
+    this.canva = new Canva(canvasEl, this.init.bind(this));
 
-    this.canva.background('#E1EAF7');
-    this.renderCells();
-
+    this.init(canvasEl.height, canvasEl.height);
     this.draw();
   }
 
+  private init(height: number, width: number): void {
+    this.height = height;
+    this.width = width;
+
+    this.grid = [];
+    this.canva.background('#E1EAF7');
+    this.renderCells();
+  }
+
   private renderCells(): void {
-    const cellWidth = this.width / this.cols;
-    const cellHeight = this.height / this.rows;
+    const cellWidth = (this.width - this.padding * 2) / this.cols;
+    const cellHeight = (this.height - this.padding * 2) / this.rows;
     const r = Math.min(cellWidth / 2, cellHeight / 2) / 2;
 
     for (let i = 0; i < this.rows; i++) {
       for (let j = 0; j < this.cols; j++) {
-        const x0 = cellWidth / 2 + cellWidth * i;
-        const y0 = cellHeight / 2 + cellHeight * j;
+        const x0 = this.padding + (cellWidth / 2 + cellWidth * i);
+        const y0 = this.padding + (cellHeight / 2 + cellHeight * j);
         const angle = i * 10 + j * 10;
         this.grid.push(new Cell({ x0, y0, r, angle, canva: this.canva }));
       }

@@ -18,7 +18,7 @@ const WavePattern = () => {
   const article = <div>Wave pattern article</div>;
   const demo = (
     <div className="flex items-center h-full">
-      <canvas className="aspect-auto w-full" ref={canvasRef} />
+      <canvas className="aspect-square w-full" ref={canvasRef} />
     </div>
   );
 

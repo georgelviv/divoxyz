@@ -1,3 +1,5 @@
+type ResizeObserverCallback = (height: number, width: number) => void;
+
 export class Canva {
   private isActive: boolean = false;
   private animationId: number;
@@ -9,13 +11,20 @@ export class Canva {
   private height: number;
   private ctx: CanvasRenderingContext2D;
 
-  constructor(canvasEl: HTMLCanvasElement) {
+  private resizeCallback: ResizeObserverCallback;
+
+  constructor(
+    canvasEl: HTMLCanvasElement,
+    resizeCallback: ResizeObserverCallback
+  ) {
     this.canvasEl = canvasEl;
     this.originalHeight = canvasEl.height;
     this.originalWidth = canvasEl.width;
+    this.resizeCallback = resizeCallback;
     this.ctx = canvasEl.getContext('2d')!;
 
     this.updateScaleRation();
+    this.updateOnResize();
   }
 
   public background(color: string): void {
@@ -69,5 +78,20 @@ export class Canva {
 
     this.height = this.originalHeight * ratio;
     this.canvasEl.height = this.height;
+
+    this.ctx.scale(ratio, ratio);
+  }
+
+  private updateOnResize(): void {
+    const resizeObserver = new ResizeObserver((entries) => {
+      const { height, width } = entries[0].contentRect;
+      this.originalWidth = width;
+      this.originalHeight = height;
+
+      this.updateScaleRation();
+      this.resizeCallback(this.originalHeight, this.originalWidth);
+    });
+
+    resizeObserver.observe(this.canvasEl);
   }
 }
