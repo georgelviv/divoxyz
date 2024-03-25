@@ -18,8 +18,10 @@
     "Canva",
     "DYVO",
     "dyvoxyz",
+    "Katex",
     "lightningcss",
     "Pipeable",
+    "rehype",
     "sirv",
     "tailwindcss"
   ]

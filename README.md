@@ -26,3 +26,7 @@
 
 - SSR template https://github.com/bluwy/create-vite-extra/tree/master/template-ssr-react
 - Deploy action https://github.com/w9jds/firebase-action
+
+### KaTeX
+
+https://katex.org/docs/supported.html#operators

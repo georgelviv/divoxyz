@@ -21,5 +21,6 @@ export default defineConfig({
       '@posts': fileURLToPath(new URL('../src/app/posts', import.meta.url)),
       '@shared': fileURLToPath(new URL('../src/app/shared', import.meta.url))
     }
-  }
+  },
+  assetsInclude: ['**/*.md']
 });
