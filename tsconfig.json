@@ -16,7 +16,8 @@
       "@posts/*": ["./src/app/posts/*"],
       "@shared/*": ["./src/app/shared/*"]
     },
-    "strictPropertyInitialization": false
+    "strictPropertyInitialization": false,
+    "strictNullChecks": false
   },
   "include": ["./src"]
 }
