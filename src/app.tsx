@@ -4,7 +4,7 @@ import './styles/main.scss';
 
 const App = () => {
   return (
-    <main className="bg-background h-full p-5">
+    <main className="bg-background lg:h-full lg:overflow-auto p-5">
       <Header />
       <Outlet />
     </main>

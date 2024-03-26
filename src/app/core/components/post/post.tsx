@@ -15,13 +15,13 @@ interface Props {
 }
 
 const containerClass = classNames(
-  'flex flex-col lg:flex-row gap-5 relative h-[calc(100%-60px)] overflow-auto'
+  'flex flex-col lg:flex-row gap-5 relative h-[calc(100%-60px)] lg:overflow-auto'
 );
 const colClass = classNames(
   'flex-initial lg:flex-1 lg:overflow-auto p-2 scroll-mt-12'
 );
 const buttonClass = classNames(
-  'lg:hidden flex justify-center sticky pb-2 top-0 bg-background'
+  'lg:hidden flex justify-center sticky py-2 top-0 bg-background'
 );
 
 const Post = ({ demo, article, title }: Props) => {
@@ -41,7 +41,7 @@ const Post = ({ demo, article, title }: Props) => {
   };
 
   return (
-    <div className={'h-[calc(100%-48px)] overflow-auto'}>
+    <div className={'lg:h-[calc(100%-48px)'}>
       <h1 className="text-center text-primary text-4xl mb-5">{title}</h1>
       <div className={containerClass}>
         <div className={buttonClass}>

@@ -3,16 +3,10 @@ import { useEffect, useRef } from 'react';
 import { WavePatternVisual } from './wave-pattern.visual';
 import article from './article.md?raw';
 
-let isInitiated: boolean = false;
-
 const WavePattern = () => {
   const canvasRef = useRef(null);
 
   useEffect(() => {
-    if (isInitiated) {
-      return;
-    }
-    isInitiated = true;
     new WavePatternVisual(canvasRef.current!);
   }, []);
 
