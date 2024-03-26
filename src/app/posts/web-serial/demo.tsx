@@ -21,6 +21,7 @@ enum CheckStatus {
 interface DemoState {
   check: CheckStatus;
   connection: ConnectionStatus;
+  messages: string;
 }
 
 const CheckStatusLabel = ({ checkStatus }: { checkStatus: CheckStatus }) => {
@@ -40,7 +41,8 @@ const CheckStatusLabel = ({ checkStatus }: { checkStatus: CheckStatus }) => {
 const Demo = () => {
   const [state, setState] = useState<DemoState>({
     check: CheckStatus.initial,
-    connection: ConnectionStatus.initial
+    connection: ConnectionStatus.initial,
+    messages: ''
   });
 
   useEffect(() => {
@@ -53,9 +55,11 @@ const Demo = () => {
 
   const handleConnectToUSB = async () => {
     const isConnected = await webSerialService.init();
-    if (!isConnected) {
-      setState({ ...state, connection: ConnectionStatus.error });
-    }
+    const connectionState = isConnected
+      ? ConnectionStatus.connected
+      : ConnectionStatus.error;
+
+    setState({ ...state, connection: connectionState });
   };
 
   if (state.check !== CheckStatus.supported) {
@@ -76,8 +80,6 @@ const Demo = () => {
       </div>
     );
   }
-
-  webSerialService.read();
 
   return <div className={messageStyle}>Device is connected</div>;
 };

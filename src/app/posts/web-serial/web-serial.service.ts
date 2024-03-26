@@ -1,19 +1,28 @@
+import { Observable, Subject } from 'rxjs';
+
 class WebSerialService {
-  public reader: ReadableStreamDefaultReader;
-  public writer: WritableStreamDefaultWriter;
+  private reader: ReadableStreamDefaultReader;
+
+  private decoder: TextDecoder = new TextDecoder();
+  private data$: Subject<string> = new Subject<string>();
 
   public checkIfWebSerialIsSupported(): boolean {
     return 'serial' in navigator;
+  }
+
+  public getData$(): Observable<string> {
+    return this.data$.asObservable();
   }
 
   public async init(): Promise<boolean> {
     try {
       const port = await navigator.serial.requestPort();
       await port.open({ baudRate: 9600 });
-      console.log(port);
 
-      this.writer = port.writable.getWriter();
+      // this.writer = port.writable.getWriter();
       this.reader = port.readable.getReader();
+
+      this.read();
 
       return true;
     } catch (e) {
@@ -22,14 +31,14 @@ class WebSerialService {
     }
   }
 
-  public async read(): Promise<{ hasError: boolean; data?: string }> {
+  public async read(): Promise<void> {
     try {
-      const { value, done } = await this.reader.read();
-      console.log(value, done);
-      return { hasError: false, data: value };
+      const { value } = await this.reader.read();
+      const decodedData: string = this.decoder.decode(value);
+      console.log(decodedData);
+      this.data$.next(decodedData);
     } catch (e) {
       console.error('Error to read serial');
-      return { hasError: true };
     }
   }
 }
