@@ -1,10 +1,13 @@
-import { Post } from '@core/components/post';
 import { useEffect, useRef } from 'react';
 import { WavePatternVisual } from './wave-pattern.visual';
 import article from './article.md?raw';
+import { useLoaderData } from 'react-router-dom';
+import PostLayout from '@core/components/post-layout/post-layout';
+import { Post } from '@core/models/core.models';
 
 const WavePattern = () => {
   const canvasRef = useRef(null);
+  const post: Post = useLoaderData() as Post;
 
   useEffect(() => {
     new WavePatternVisual(canvasRef.current!);
@@ -16,7 +19,7 @@ const WavePattern = () => {
     </div>
   );
 
-  return <Post title="Wave Pattern" article={article} demo={demo} />;
+  return <PostLayout post={post} article={article} demo={demo} />;
 };
 
 WavePattern.displayName = 'WavePattern';

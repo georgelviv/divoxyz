@@ -85,6 +85,10 @@ export class Canva {
   private updateOnResize(): void {
     const resizeObserver = new ResizeObserver((entries) => {
       const { height, width } = entries[0].contentRect;
+      if (!height || !width) {
+        return;
+      }
+
       this.originalWidth = width;
       this.originalHeight = height;
 

@@ -6,9 +6,10 @@
 
 ## TODO
 
+- post date
+- tag
 - post details
 - full screen?
-- migrate to ssr streams
 
 ## IDEAS
 

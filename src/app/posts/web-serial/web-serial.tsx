@@ -1,9 +1,12 @@
-import { Post } from '@core/components/post';
 import Demo from './demo';
 import article from './article.md?raw';
+import { useLoaderData } from 'react-router-dom';
+import { Post } from '@core/models/core.models';
+import PostLayout from '@core/components/post-layout/post-layout';
 
 const WebSerial = () => {
-  return <Post title="Web Serial" article={article} demo={<Demo />} />;
+  const post: Post = useLoaderData() as Post;
+  return <PostLayout post={post} article={article} demo={<Demo />} />;
 };
 
 WebSerial.displayName = 'WebSerial';

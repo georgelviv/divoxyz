@@ -2,16 +2,17 @@ import { Button } from '@shared/button';
 import classNames from 'classnames';
 import { useRef } from 'react';
 import Markdown from 'react-markdown';
-import './post.scss';
+import { Post } from '@core/models/core.models';
+import './post-layout.scss';
+import 'katex/dist/katex.min.css';
 import rehypeKatex from 'rehype-katex';
 import remarkMath from 'remark-math';
-
-import 'katex/dist/katex.min.css';
+import { formateISODate } from '@shared/utils/general.utils';
 
 interface Props {
   demo: JSX.Element;
   article: string;
-  title: string;
+  post: Post;
 }
 
 const containerClass = classNames(
@@ -24,7 +25,7 @@ const buttonClass = classNames(
   'lg:hidden flex justify-center sticky py-2 top-0 bg-background'
 );
 
-const Post = ({ demo, article, title }: Props) => {
+const PostLayout = ({ demo, article, post }: Props) => {
   const articleRef = useRef<HTMLDivElement>(null);
   const demoRef = useRef<HTMLDivElement>(null);
 
@@ -42,7 +43,14 @@ const Post = ({ demo, article, title }: Props) => {
 
   return (
     <div className={'lg:h-[calc(100%-48px)'}>
-      <h1 className="text-center text-primary text-4xl mb-5">{title}</h1>
+      <div className="mb-5">
+        <h1 className="text-center text-primary text-4xl">{post.title}</h1>
+        <div className="flex justify-end">
+          <time dateTime={post.date} className="text-sm text-secondary">
+            {formateISODate(post.date)}
+          </time>
+        </div>
+      </div>
       <div className={containerClass}>
         <div className={buttonClass}>
           <Button onClick={handleGoToArticle}>Jump to article</Button>
@@ -58,7 +66,7 @@ const Post = ({ demo, article, title }: Props) => {
         </div>
         <div className={classNames(colClass, 'pt-0')} ref={articleRef}>
           <Markdown
-            className="post"
+            className="post-layout"
             remarkPlugins={[remarkMath]}
             rehypePlugins={[rehypeKatex]}
           >
@@ -70,6 +78,6 @@ const Post = ({ demo, article, title }: Props) => {
   );
 };
 
-Post.displayName = 'Post';
+PostLayout.displayName = 'PostLayout';
 
-export default Post;
+export default PostLayout;

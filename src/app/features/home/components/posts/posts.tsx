@@ -59,7 +59,11 @@ const PostItem = ({
           />
         )}
       </AnimatePresence>
-      <Card title={post.title} description={post.description} />
+      <Card
+        title={post.title}
+        description={post.description}
+        date={post.date}
+      />
     </Link>
   );
 };
