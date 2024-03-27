@@ -1,15 +1,15 @@
 [
   {
-    "title": "WebSerial",
-    "id": "web-serial",
-    "description": "Read and write serial (UART) in browser demo",
+    "title": "Read serial in browser",
+    "id": "web-serial-reader",
+    "description": "Read serial communication in browser with WebSerial API.",
     "date": "2024-03-27T00:00:00.000Z",
     "tags": ["embedded"]
   },
   {
     "title": "WavePattern",
     "id": "wave-pattern",
-    "description": "Wave Pattern animation",
+    "description": "Wave Pattern animation.",
     "date": "2024-03-26T00:00:00.000Z",
     "tags": ["visual"]
   }

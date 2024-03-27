@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react';
-import { WebSerialDevice } from './web-serial.device';
+import {
+  WebSerialDevice,
+  WebSerialDeviceConnectStatus
+} from './web-serial.device';
 import classNames from 'classnames';
 import { Button } from '@shared/button';
 
@@ -9,7 +12,8 @@ enum ConnectionStatus {
   initial,
   connecting,
   error,
-  connected
+  connected,
+  disconnected
 }
 
 enum CheckStatus {
@@ -61,7 +65,7 @@ const Demo = () => {
       ? CheckStatus.supported
       : CheckStatus.notSupported;
 
-    const subscription = webSerialDevice.getData$().subscribe((d) => {
+    const dataSubscription = webSerialDevice.getData$().subscribe((d) => {
       setState((currentState: DemoState) => {
         const readData: string = currentState.readData + d;
         return {
@@ -71,21 +75,39 @@ const Demo = () => {
       });
     });
 
+    const disconnectSubscription = webSerialDevice
+      .getDisconnected$()
+      .subscribe(() => {
+        setState((currentState: DemoState) => {
+          return {
+            ...currentState,
+            isReading: false,
+            readData: '',
+            connection: ConnectionStatus.disconnected
+          };
+        });
+      });
+
     setState({ ...state, check: status });
 
     return () => {
-      subscription.unsubscribe();
+      dataSubscription.unsubscribe();
+      disconnectSubscription.unsubscribe();
       webSerialDevice.closePort();
     };
   }, [webSerialDevice]);
 
   const handleConnectToUSB = async () => {
-    const isConnected = await webSerialDevice.connect();
-    const connectionState = isConnected
-      ? ConnectionStatus.connected
-      : ConnectionStatus.error;
+    const status: WebSerialDeviceConnectStatus =
+      await webSerialDevice.connect();
+    let connection: ConnectionStatus = ConnectionStatus.initial;
+    if (status === WebSerialDeviceConnectStatus.connected) {
+      connection = ConnectionStatus.connected;
+    } else if (status === WebSerialDeviceConnectStatus.errorToConnect) {
+      connection = ConnectionStatus.error;
+    }
 
-    setState({ ...state, connection: connectionState });
+    setState({ ...state, connection });
   };
 
   const handleReadingToggle = async () => {
@@ -105,14 +127,19 @@ const Demo = () => {
   }
 
   if (
-    [ConnectionStatus.initial, ConnectionStatus.error].includes(
-      state.connection
-    )
+    [
+      ConnectionStatus.initial,
+      ConnectionStatus.error,
+      ConnectionStatus.disconnected
+    ].includes(state.connection)
   ) {
     return (
       <div className={messageStyle}>
         {state.connection === ConnectionStatus.error && (
           <div>Try again to connect</div>
+        )}
+        {state.connection === ConnectionStatus.disconnected && (
+          <div>Device disconnected</div>
         )}
         <Button onClick={handleConnectToUSB}>Connect to port</Button>
       </div>

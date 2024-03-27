@@ -6,10 +6,10 @@
 
 ## TODO
 
-- post date
 - tag
+- article link in new tab
 - post details
-- full screen?
+- demo full screen?
 
 ## IDEAS
 

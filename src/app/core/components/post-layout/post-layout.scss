@@ -2,5 +2,15 @@
   color: #334155;
   a {
     text-decoration: underline;
+    font-weight: 600;
+  }
+
+  p {
+    text-indent: 20px;
+    margin-bottom: 16px;
+  }
+
+  blockquote {
+    font-style: italic;
   }
 }

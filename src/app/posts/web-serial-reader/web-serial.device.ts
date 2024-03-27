@@ -1,13 +1,24 @@
 import { wait } from '@shared/utils/general.utils';
 import { Observable, Subject } from 'rxjs';
 
+export enum WebSerialDeviceConnectStatus {
+  connected,
+  errorToConnect,
+  notSelected
+}
+
 class WebSerialDevice {
   private reader: ReadableStreamDefaultReader;
   private port: SerialPort;
 
   private decoder: TextDecoder = new TextDecoder();
   private data$: Subject<string> = new Subject<string>();
+  private disconnected$: Subject<boolean> = new Subject<boolean>();
   private isReading: boolean = false;
+
+  constructor() {
+    this.handleDisconnect = this.handleDisconnect.bind(this);
+  }
 
   public checkIfWebSerialIsSupported(): boolean {
     return 'serial' in navigator;
@@ -17,7 +28,11 @@ class WebSerialDevice {
     return this.data$.asObservable();
   }
 
-  public async connect(): Promise<boolean> {
+  public getDisconnected$(): Observable<boolean> {
+    return this.disconnected$.asObservable();
+  }
+
+  public async connect(): Promise<WebSerialDeviceConnectStatus> {
     if (this.port) {
       await this.closePort();
     }
@@ -26,11 +41,19 @@ class WebSerialDevice {
       await this.port.open({ baudRate: 9600 });
 
       this.reader = this.port.readable.getReader();
+      this.port.addEventListener('disconnect', this.handleDisconnect);
 
-      return true;
+      return WebSerialDeviceConnectStatus.connected;
     } catch (e) {
-      console.error('Cannot connect to web serial', typeof e);
-      return false;
+      if (
+        typeof e === 'object' &&
+        'message' in e &&
+        (e.message as string).match('No port selected by the user.')
+      ) {
+        return WebSerialDeviceConnectStatus.notSelected;
+      }
+      console.error('Cannot connect to serial', e);
+      return WebSerialDeviceConnectStatus.errorToConnect;
     }
   }
 
@@ -84,6 +107,11 @@ class WebSerialDevice {
       }
       console.error('Error to read serial', e);
     }
+  }
+
+  private handleDisconnect(): void {
+    this.closePort();
+    this.disconnected$.next(true);
   }
 }
 
