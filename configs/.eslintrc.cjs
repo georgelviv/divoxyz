@@ -15,6 +15,8 @@ module.exports = {
       'warn',
       { allowConstantExport: true }
     ],
-    'no-unused-expressions': 'error'
+    'no-unused-expressions': 'error',
+    '@typescript-eslint/ban-types': 'off',
+    '@typescript-eslint/no-explicit-any': 'off'
   }
 };

@@ -45,15 +45,16 @@ class RainbowCircleVisual {
   private circles: Circle[] = [];
 
   constructor(canvasEl: HTMLCanvasElement) {
-    this.canva = new Canva(canvasEl, this.init.bind(this));
-
-    this.init();
-    this.draw();
+    this.canva = new Canva(canvasEl, () => {
+      this.init();
+      this.draw();
+    });
   }
 
   private init(): void {
     const angle = 360 / this.n;
 
+    this.circles = [];
     this.canva.background(this.backgroundColor);
 
     for (let i = 0; i < this.n; i++) {

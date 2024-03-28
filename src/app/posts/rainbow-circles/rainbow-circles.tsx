@@ -3,11 +3,17 @@ import article from './article.md?raw';
 import { useEffect, useRef } from 'react';
 import RainbowCircleVisual from './rainbow-circles.visual';
 
+let isRendered = false;
+
 const RainbowCircles = () => {
   const canvasRef = useRef(null);
 
   useEffect(() => {
+    if (isRendered) {
+      return;
+    }
     new RainbowCircleVisual(canvasRef.current!);
+    isRendered = true;
   }, []);
 
   const demo = (

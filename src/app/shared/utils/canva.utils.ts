@@ -1,3 +1,5 @@
+import { debounce } from './general.utils';
+
 type ResizeObserverCallback = (height: number, width: number) => void;
 type DrawCallback = (height: number, width: number) => void;
 
@@ -21,10 +23,10 @@ export class Canva {
     this.canvasEl = canvasEl;
     this.originalHeight = canvasEl.height;
     this.originalWidth = canvasEl.width;
-    this.resizeCallback = resizeCallback;
+    this.resizeCallback = debounce(resizeCallback, 100);
     this.ctx = canvasEl.getContext('2d')!;
 
-    this.updateScaleRation();
+    this.updateScaleRatio();
     this.updateOnResize();
   }
 
@@ -34,6 +36,8 @@ export class Canva {
   }
 
   public startAnimation(draw: DrawCallback): void {
+    this.stop();
+
     this.isActive = true;
     this.update(draw);
   }
@@ -82,6 +86,7 @@ export class Canva {
 
   private update(draw: DrawCallback): void {
     this.animationId = requestAnimationFrame(() => {
+      this.clear();
       draw(this.originalHeight, this.originalWidth);
 
       if (this.isActive) {
@@ -90,7 +95,7 @@ export class Canva {
     });
   }
 
-  private updateScaleRation(): void {
+  private updateScaleRatio(): void {
     const ratio = window.devicePixelRatio || 1;
 
     this.width = this.originalWidth * ratio;
@@ -112,7 +117,7 @@ export class Canva {
       this.originalWidth = width;
       this.originalHeight = height;
 
-      this.updateScaleRation();
+      this.updateScaleRatio();
       this.resizeCallback(this.originalHeight, this.originalWidth);
     });
 
