@@ -8,11 +8,11 @@ import 'katex/dist/katex.min.css';
 import rehypeKatex from 'rehype-katex';
 import remarkMath from 'remark-math';
 import { formateISODate } from '@shared/utils/general.utils';
+import { useLoaderData } from 'react-router-dom';
 
 interface Props {
   demo: JSX.Element;
   article: string;
-  post: Post;
 }
 
 const containerClass = classNames(
@@ -25,9 +25,11 @@ const buttonClass = classNames(
   'lg:hidden flex justify-center sticky py-2 top-0 bg-background'
 );
 
-const PostLayout = ({ demo, article, post }: Props) => {
+const PostLayout = ({ demo, article }: Props) => {
   const articleRef = useRef<HTMLDivElement>(null);
   const demoRef = useRef<HTMLDivElement>(null);
+
+  const post: Post = useLoaderData() as Post;
 
   const handleBackToDemo = () => {
     if (demoRef.current) {

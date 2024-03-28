@@ -1,5 +1,12 @@
 [
   {
+    "title": "Rainbow Circles",
+    "id": "rainbow-circles",
+    "description": "Rainbow Circles animation.",
+    "date": "2024-03-28T00:00:00.000Z",
+    "tags": ["visual"]
+  },
+  {
     "title": "Read serial in browser",
     "id": "web-serial-reader",
     "description": "Read serial communication in browser with WebSerial API.",

@@ -1,4 +1,5 @@
 type ResizeObserverCallback = (height: number, width: number) => void;
+type DrawCallback = (height: number, width: number) => void;
 
 export class Canva {
   private isActive: boolean = false;
@@ -32,9 +33,13 @@ export class Canva {
     this.ctx.fillRect(0, 0, this.width, this.height);
   }
 
-  public startAnimation(resetFn: () => void, draw: () => void): void {
+  public startAnimation(draw: DrawCallback): void {
     this.isActive = true;
-    this.update(resetFn, draw);
+    this.update(draw);
+  }
+
+  public clear(): void {
+    this.ctx.clearRect(0, 0, this.originalWidth, this.originalHeight);
   }
 
   public stop(): void {
@@ -54,18 +59,33 @@ export class Canva {
   public circle(x: number, y: number, r: number): void {
     this.ctx.beginPath();
     this.ctx.arc(x, y, r, 0, 2 * Math.PI);
-    this.ctx.stroke();
     this.ctx.fill();
+    this.ctx.stroke();
     this.ctx.closePath();
   }
 
-  private update(resetFn: () => void, draw: () => void): void {
+  public saveState(): void {
+    this.ctx.save();
+  }
+
+  public restoreState(): void {
+    this.ctx.restore();
+  }
+
+  public translate(x: number, y: number): void {
+    this.ctx.translate(x, y);
+  }
+
+  public blendMode(mode: GlobalCompositeOperation): void {
+    this.ctx.globalCompositeOperation = mode;
+  }
+
+  private update(draw: DrawCallback): void {
     this.animationId = requestAnimationFrame(() => {
-      resetFn();
-      draw();
+      draw(this.originalHeight, this.originalWidth);
 
       if (this.isActive) {
-        this.update(resetFn, draw);
+        this.update(draw);
       }
     });
   }

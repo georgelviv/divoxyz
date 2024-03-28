@@ -94,17 +94,13 @@ export class WavePatternVisual {
   }
 
   private draw(): void {
-    this.canva.startAnimation(
-      () => {
-        this.canva.background('#E1EAF7');
-      },
-      () => {
-        this.grid.forEach((c) => {
-          c.update();
-          c.display();
-        });
-      }
-    );
+    this.canva.startAnimation(() => {
+      this.canva.background('#E1EAF7');
+      this.grid.forEach((c) => {
+        c.update();
+        c.display();
+      });
+    });
   }
 }
 

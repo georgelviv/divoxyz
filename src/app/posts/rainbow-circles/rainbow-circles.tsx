@@ -1,13 +1,13 @@
-import { useEffect, useRef } from 'react';
-import { WavePatternVisual } from './wave-pattern.visual';
-import article from './article.md?raw';
 import PostLayout from '@core/components/post-layout/post-layout';
+import article from './article.md?raw';
+import { useEffect, useRef } from 'react';
+import RainbowCircleVisual from './rainbow-circles.visual';
 
-const WavePattern = () => {
+const RainbowCircles = () => {
   const canvasRef = useRef(null);
 
   useEffect(() => {
-    new WavePatternVisual(canvasRef.current!);
+    new RainbowCircleVisual(canvasRef.current!);
   }, []);
 
   const demo = (
@@ -19,6 +19,6 @@ const WavePattern = () => {
   return <PostLayout article={article} demo={demo} />;
 };
 
-WavePattern.displayName = 'WavePattern';
+RainbowCircles.displayName = 'RainbowCircles';
 
-export default WavePattern;
+export default RainbowCircles;
