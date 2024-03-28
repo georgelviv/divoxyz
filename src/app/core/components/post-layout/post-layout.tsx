@@ -25,6 +25,14 @@ const buttonClass = classNames(
   'lg:hidden flex justify-center sticky py-2 top-0 bg-background'
 );
 
+function LinkRenderer(props: { href: string; children: JSX.Element | string }) {
+  return (
+    <a href={props.href} target="_blank" rel="noreferrer">
+      {props.children}
+    </a>
+  );
+}
+
 const PostLayout = ({ demo, article }: Props) => {
   const articleRef = useRef<HTMLDivElement>(null);
   const demoRef = useRef<HTMLDivElement>(null);
@@ -68,6 +76,7 @@ const PostLayout = ({ demo, article }: Props) => {
         </div>
         <div className={classNames(colClass, 'pt-0')} ref={articleRef}>
           <Markdown
+            components={{ a: LinkRenderer }}
             className="post-layout"
             remarkPlugins={[remarkMath]}
             rehypePlugins={[rehypeKatex]}
