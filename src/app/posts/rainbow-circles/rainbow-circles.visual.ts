@@ -67,7 +67,7 @@ class RainbowCircleVisual {
       this.canva.background(this.backgroundColor);
       this.canva.saveState();
       this.canva.blendMode('difference');
-      this.canva.translate(height / 2, width / 2);
+      this.canva.translate(width / 2, height / 2);
       this.circles.forEach((c) => {
         c.update();
         c.display();

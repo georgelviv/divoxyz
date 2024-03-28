@@ -49,7 +49,7 @@ export class Canva {
   public stop(): void {
     this.isActive = false;
 
-    cancelAnimationFrame(this.animationId);
+    clearTimeout(this.animationId);
   }
 
   public fill(color: string): void {
@@ -85,14 +85,14 @@ export class Canva {
   }
 
   private update(draw: DrawCallback): void {
-    this.animationId = requestAnimationFrame(() => {
+    this.animationId = setTimeout(() => {
       this.clear();
       draw(this.originalHeight, this.originalWidth);
 
       if (this.isActive) {
         this.update(draw);
       }
-    });
+    }, 10) as unknown as number;
   }
 
   private updateScaleRatio(): void {

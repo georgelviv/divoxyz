@@ -6,7 +6,9 @@ import {
 import classNames from 'classnames';
 import { Button } from '@shared/button';
 
-const messageStyle = classNames('text-4xl text-center text-primary');
+const messageStyle = classNames(
+  'text-4xl text-center text-primary flex justify-center'
+);
 
 enum ConnectionStatus {
   initial,

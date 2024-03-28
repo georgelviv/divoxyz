@@ -1,21 +1,45 @@
 import classNames from 'classnames';
 import { motion } from 'framer-motion';
 import { ComponentProps } from 'react';
+import { ButtonIcon, ButtonTheme } from './button.models';
+import { Expand, Minimize } from 'lucide-react';
 
 interface Props extends ComponentProps<'button'> {
-  children: JSX.Element | string;
+  children?: JSX.Element | string;
   scaleAnimation?: boolean;
+  icon?: ButtonIcon;
+  theme?: ButtonTheme;
 }
 
-const Button = ({ children, scaleAnimation, ...rest }: Props) => {
-  const cssClasses = classNames(
+const Button = ({ children, theme, scaleAnimation, icon, ...rest }: Props) => {
+  let cssClasses = classNames(
     'rounded-md border border-primary text-sm bg-background',
-    'text-primary font-medium px-4 py-2 hover:cursor-pointer'
+    'text-primary font-medium px-4 py-2 hover:cursor-pointer',
+    'flex justify-center items-center gap-2'
   );
+
+  if (theme) {
+    if (theme === 'text') {
+      cssClasses = classNames(cssClasses, 'border-0 bg-transparent');
+    }
+  }
+
+  let iconContent: JSX.Element | string = '';
+
+  if (icon) {
+    if (icon === 'expand') {
+      iconContent = <Expand />;
+    } else if (icon === 'minimize') {
+      iconContent = <Minimize />;
+    }
+  }
+
+  const childrenContent = children ?? '';
 
   const buttonEl = (
     <button className={cssClasses} {...rest}>
-      {children}
+      {iconContent}
+      {childrenContent}
     </button>
   );
 

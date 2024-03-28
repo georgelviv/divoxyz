@@ -1,6 +1,6 @@
 import { Button } from '@shared/button';
 import classNames from 'classnames';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Markdown from 'react-markdown';
 import { Post } from '@core/models/core.models';
 import './post-layout.scss';
@@ -25,7 +25,10 @@ const buttonClass = classNames(
   'lg:hidden flex justify-center sticky py-2 top-0 bg-background'
 );
 
-function LinkRenderer(props: { href: string; children: JSX.Element | string }) {
+function LinkRenderer(props: {
+  href?: string;
+  children: JSX.Element | string;
+}) {
   return (
     <a href={props.href} target="_blank" rel="noreferrer">
       {props.children}
@@ -36,8 +39,21 @@ function LinkRenderer(props: { href: string; children: JSX.Element | string }) {
 const PostLayout = ({ demo, article }: Props) => {
   const articleRef = useRef<HTMLDivElement>(null);
   const demoRef = useRef<HTMLDivElement>(null);
-
   const post: Post = useLoaderData() as Post;
+
+  const [isFullScreen, setFullScreen] = useState<boolean>(false);
+
+  useEffect(() => {
+    const fullScreenHandler = () => {
+      setFullScreen(Boolean(document.fullscreenElement));
+    };
+
+    document.addEventListener('fullscreenchange', fullScreenHandler);
+
+    return () => {
+      document.removeEventListener('fullScreenHandler', fullScreenHandler);
+    };
+  }, []);
 
   const handleBackToDemo = () => {
     if (demoRef.current) {
@@ -48,6 +64,14 @@ const PostLayout = ({ demo, article }: Props) => {
   const handleGoToArticle = () => {
     if (articleRef.current) {
       articleRef.current.scrollIntoView();
+    }
+  };
+
+  const handleFullScreen = () => {
+    if (!document.fullscreenElement) {
+      demoRef.current.requestFullscreen();
+    } else {
+      document.exitFullscreen();
     }
   };
 
@@ -69,7 +93,14 @@ const PostLayout = ({ demo, article }: Props) => {
           ref={demoRef}
           className={classNames(colClass, 'bg-background-secondary')}
         >
-          {demo}
+          <div className="flex justify-end">
+            <Button
+              theme="text"
+              icon={isFullScreen ? 'minimize' : 'expand'}
+              onClick={handleFullScreen}
+            />
+          </div>
+          <div className="h-[calc(100%-40px)]">{demo}</div>
         </div>
         <div className={buttonClass}>
           <Button onClick={handleBackToDemo}>Back to demo</Button>
