@@ -1,4 +1,4 @@
-import { formateISODate } from '@shared/utils/general.utils';
+import { DateLabel } from '@shared/components/date-label';
 import classNames from 'classnames';
 
 interface CardProps {
@@ -17,9 +17,7 @@ const Card = ({ title, description, date }: CardProps) => {
   return (
     <div className={divClass}>
       <div className="flex justify-end">
-        <time dateTime={date} className="text-xs text-secondary">
-          {formateISODate(date)}
-        </time>
+        <DateLabel date={date} />
       </div>
       <div className="mb-5 text-primary font-medium text-xl">{title}</div>
       <div className="text-sm text-secondary">{description}</div>

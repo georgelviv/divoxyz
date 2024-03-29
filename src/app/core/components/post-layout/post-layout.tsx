@@ -1,14 +1,13 @@
-import { Button } from '@shared/button';
+import { Button } from '@shared/components/button';
 import classNames from 'classnames';
 import { useEffect, useRef, useState } from 'react';
-import Markdown from 'react-markdown';
 import { Post } from '@core/models/core.models';
 import './post-layout.scss';
 import 'katex/dist/katex.min.css';
-import rehypeKatex from 'rehype-katex';
-import remarkMath from 'remark-math';
-import { formateISODate } from '@shared/utils/general.utils';
 import { useLoaderData } from 'react-router-dom';
+import { DateLabel } from '@shared/components/date-label';
+import PostLayoutContent from './post-layout-content';
+import PostLayoutDemo from './post-layout-demo';
 
 interface Props {
   demo: JSX.Element;
@@ -24,17 +23,6 @@ const colClass = classNames(
 const buttonClass = classNames(
   'lg:hidden flex justify-center sticky py-2 top-0 bg-background'
 );
-
-function LinkRenderer(props: {
-  href?: string;
-  children: JSX.Element | string;
-}) {
-  return (
-    <a href={props.href} target="_blank" rel="noreferrer">
-      {props.children}
-    </a>
-  );
-}
 
 const PostLayout = ({ demo, article }: Props) => {
   const articleRef = useRef<HTMLDivElement>(null);
@@ -80,9 +68,7 @@ const PostLayout = ({ demo, article }: Props) => {
       <div className="mb-5">
         <h1 className="text-center text-primary text-4xl">{post.title}</h1>
         <div className="flex justify-end">
-          <time dateTime={post.date} className="text-sm text-secondary">
-            {formateISODate(post.date)}
-          </time>
+          <DateLabel date={post.date} />
         </div>
       </div>
       <div className={containerClass}>
@@ -91,29 +77,20 @@ const PostLayout = ({ demo, article }: Props) => {
         </div>
         <div
           ref={demoRef}
-          className={classNames(colClass, 'bg-background-secondary')}
+          style={{ backgroundColor: post.demoBackground }}
+          className={classNames(colClass)}
         >
-          <div className="flex justify-end">
-            <Button
-              theme="text"
-              icon={isFullScreen ? 'minimize' : 'expand'}
-              onClick={handleFullScreen}
-            />
-          </div>
-          <div className="h-[calc(100%-40px)]">{demo}</div>
+          <PostLayoutDemo
+            isFullScreen={isFullScreen}
+            demo={demo}
+            handleFullScreen={handleFullScreen}
+          />
         </div>
         <div className={buttonClass}>
           <Button onClick={handleBackToDemo}>Back to demo</Button>
         </div>
         <div className={classNames(colClass, 'pt-0')} ref={articleRef}>
-          <Markdown
-            components={{ a: LinkRenderer }}
-            className="post-layout"
-            remarkPlugins={[remarkMath]}
-            rehypePlugins={[rehypeKatex]}
-          >
-            {article}
-          </Markdown>
+          <PostLayoutContent article={article} />
         </div>
       </div>
     </div>

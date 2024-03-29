@@ -1,23 +1,34 @@
 [
   {
+    "title": "Labyrinth Like Pattern",
+    "id": "labyrinth-like-pattern",
+    "description": "Labyrinth like pattern with Perlin noise.",
+    "date": "2024-03-29T00:00:00.000Z",
+    "tags": ["visual"],
+    "demoBackground": "#adefda"
+  },
+  {
     "title": "Rainbow Circles",
     "id": "rainbow-circles",
     "description": "Rainbow Circles animation.",
     "date": "2024-03-28T00:00:00.000Z",
-    "tags": ["visual"]
+    "tags": ["visual"],
+    "demoBackground": "#dcdcdc"
   },
   {
     "title": "Read serial in browser",
     "id": "web-serial-reader",
     "description": "Read serial communication in browser with WebSerial API.",
     "date": "2024-03-27T00:00:00.000Z",
-    "tags": ["embedded"]
+    "tags": ["embedded"],
+    "demoBackground": "#ffffff"
   },
   {
-    "title": "WavePattern",
+    "title": "Wave Pattern",
     "id": "wave-pattern",
     "description": "Wave Pattern animation.",
     "date": "2024-03-26T00:00:00.000Z",
-    "tags": ["visual"]
+    "tags": ["visual"],
+    "demoBackground": "#E1EAF7"
   }
 ]

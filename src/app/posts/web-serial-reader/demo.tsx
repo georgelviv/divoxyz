@@ -4,7 +4,7 @@ import {
   WebSerialDeviceConnectStatus
 } from './web-serial.device';
 import classNames from 'classnames';
-import { Button } from '@shared/button';
+import { Button } from '@shared/components/button';
 
 const messageStyle = classNames(
   'text-4xl text-center text-primary flex justify-center'
