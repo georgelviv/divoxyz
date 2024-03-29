@@ -12,7 +12,7 @@ const PostLayoutDemo = ({
   handleFullScreen
 }: PostLayoutDemoProps) => {
   return (
-    <div>
+    <div className="h-full">
       <div className="flex justify-end">
         <Button
           theme="text"

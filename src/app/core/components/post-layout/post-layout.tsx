@@ -65,7 +65,7 @@ const PostLayout = ({ demo, article }: Props) => {
 
   return (
     <div className={'lg:h-[calc(100%-48px)'}>
-      <div className="mb-5">
+      <div className="mb-5 flex flex-col gap-2">
         <h1 className="text-center text-primary text-4xl">{post.title}</h1>
         <div className="flex justify-end">
           <DateLabel date={post.date} />
