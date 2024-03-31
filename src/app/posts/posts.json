@@ -4,7 +4,7 @@
     "id": "labyrinth-like-pattern",
     "description": "Labyrinth like pattern with Perlin noise.",
     "date": "2024-03-29T00:00:00.000Z",
-    "tags": ["visual"],
+    "tags": ["visual", "pattern"],
     "demoBackground": "#adefda"
   },
   {
@@ -12,7 +12,7 @@
     "id": "rainbow-circles",
     "description": "Rainbow Circles animation.",
     "date": "2024-03-28T00:00:00.000Z",
-    "tags": ["visual"],
+    "tags": ["visual", "animation"],
     "demoBackground": "#dcdcdc"
   },
   {
@@ -28,7 +28,7 @@
     "id": "wave-pattern",
     "description": "Wave Pattern animation.",
     "date": "2024-03-26T00:00:00.000Z",
-    "tags": ["visual"],
+    "tags": ["visual", "animation"],
     "demoBackground": "#E1EAF7"
   }
 ]

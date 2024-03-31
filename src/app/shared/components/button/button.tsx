@@ -5,13 +5,21 @@ import { ButtonIcon, ButtonTheme } from './button.models';
 import { Expand, Minimize } from 'lucide-react';
 
 interface Props extends ComponentProps<'button'> {
-  children?: JSX.Element | string;
+  children?: JSX.Element | string | string[];
   scaleAnimation?: boolean;
   icon?: ButtonIcon;
   theme?: ButtonTheme;
+  extraClasses?: string;
 }
 
-const Button = ({ children, theme, scaleAnimation, icon, ...rest }: Props) => {
+const Button = ({
+  children,
+  theme,
+  scaleAnimation,
+  icon,
+  extraClasses,
+  ...rest
+}: Props) => {
   let cssClasses = classNames(
     'rounded-md border border-primary text-sm bg-background',
     'text-primary font-medium px-4 py-2 hover:cursor-pointer',
@@ -20,7 +28,7 @@ const Button = ({ children, theme, scaleAnimation, icon, ...rest }: Props) => {
 
   if (theme) {
     if (theme === 'text') {
-      cssClasses = classNames(cssClasses, 'border-0 bg-transparent');
+      cssClasses = classNames(cssClasses, 'border-0 bg-transparent px-2');
     }
   }
 
@@ -37,7 +45,11 @@ const Button = ({ children, theme, scaleAnimation, icon, ...rest }: Props) => {
   const childrenContent = children ?? '';
 
   const buttonEl = (
-    <button className={cssClasses} {...rest}>
+    <button
+      type="button"
+      className={classNames(cssClasses, extraClasses)}
+      {...rest}
+    >
       {iconContent}
       {childrenContent}
     </button>

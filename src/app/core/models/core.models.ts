@@ -4,4 +4,5 @@ export interface Post {
   description: string;
   date: string;
   demoBackground: string;
+  tags: string[];
 }
