@@ -3,8 +3,9 @@ import { rand } from '@shared/utils/math.utils';
 
 class MondrianCompositionVisual {
   private canva: Canva;
-  private basicSize: number = 50;
+  private basicSize: number = 40;
   private actualSize: number;
+
   private colors: string[] = [
     '#fff001',
     '#ff0101',
@@ -13,6 +14,8 @@ class MondrianCompositionVisual {
     '#eae2b7'
   ];
   private currentColorI: number = 0;
+
+  private splitHistory: number[] = [];
   private strokeColor: string = '#30303a';
 
   constructor(canvasEl: HTMLCanvasElement) {
@@ -52,9 +55,20 @@ class MondrianCompositionVisual {
       return;
     }
 
-    const isHorizontalSplit: boolean = rand(0, 1) > 0;
+    let isHorizontalSplit: number = rand(0, 1);
+    if (this.splitHistory.length > 2) {
+      const latest: number = this.splitHistory.at(-1);
+      const similarInRow: boolean = this.splitHistory
+        .slice(-2, -1)
+        .every((el) => el === latest);
+      if (similarInRow) {
+        isHorizontalSplit = latest === 0 ? 1 : 0;
+      }
+    }
 
-    if (isHorizontalSplit) {
+    this.splitHistory.push(isHorizontalSplit);
+
+    if (isHorizontalSplit === 0) {
       const grids = h / this.actualSize;
       const splitSize: number = rand(1, grids - 1);
       const height: number = splitSize * this.actualSize;
