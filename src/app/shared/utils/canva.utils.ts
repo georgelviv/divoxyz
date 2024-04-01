@@ -60,6 +60,20 @@ export class Canva {
     this.ctx.strokeStyle = color;
   }
 
+  public strokeWidth(size: number): void {
+    this.ctx.lineWidth = size;
+  }
+
+  public font(font: string): void {
+    this.ctx.font = font;
+  }
+
+  public text(text: string, x: number, y: number): void {
+    this.ctx.beginPath();
+    this.ctx.fillText(text, x, y);
+    this.ctx.closePath();
+  }
+
   public circle(x: number, y: number, r: number): void {
     this.ctx.beginPath();
     this.ctx.arc(x, y, r, 0, 2 * Math.PI);
@@ -78,6 +92,28 @@ export class Canva {
 
   public translate(x: number, y: number): void {
     this.ctx.translate(x, y);
+  }
+
+  public rect({
+    x,
+    y,
+    width,
+    height,
+    stroke
+  }: {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+    stroke?: boolean;
+  }): void {
+    this.ctx.beginPath();
+    this.ctx.rect(x, y, width, height);
+    this.ctx.fill();
+    if (stroke) {
+      this.ctx.stroke();
+    }
+    this.ctx.closePath();
   }
 
   public blendMode(mode: GlobalCompositeOperation): void {

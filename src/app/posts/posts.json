@@ -1,5 +1,13 @@
 [
   {
+    "title": "Mondrian Composition",
+    "id": "mondrian-composition",
+    "description": "Generated with code random pattern like Mondrian Composition.",
+    "date": "2024-04-01T00:00:00.000Z",
+    "tags": ["visual", "pattern"],
+    "demoBackground": "#ffffff"
+  },
+  {
     "title": "Labyrinth Like Pattern",
     "id": "labyrinth-like-pattern",
     "description": "Labyrinth like pattern with Perlin noise.",
