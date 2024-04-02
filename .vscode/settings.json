@@ -25,6 +25,7 @@
     "Pipeable",
     "rehype",
     "sirv",
+    "splited",
     "tailwindcss"
   ]
 }

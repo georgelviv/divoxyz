@@ -14,8 +14,6 @@ class MondrianCompositionVisual {
     '#eae2b7'
   ];
   private currentColorI: number = 0;
-
-  private splitHistory: number[] = [];
   private strokeColor: string = '#30303a';
 
   constructor(canvasEl: HTMLCanvasElement) {
@@ -30,7 +28,14 @@ class MondrianCompositionVisual {
     this.adjustSize(height);
 
     this.drawRect(0, 0, height, width);
-    this.splitRecursively(0, 0, height, width, 3);
+    this.splitRecursively({
+      x: 0,
+      y: 0,
+      h: height,
+      w: width,
+      depth: 3,
+      splitHistory: []
+    });
   }
 
   private drawRect(x: number, y: number, h: number, w: number): void {
@@ -43,22 +48,30 @@ class MondrianCompositionVisual {
     this.canva.rect({ x, y, width: w, height: h, stroke: true });
   }
 
-  private splitRecursively(
-    x: number,
-    y: number,
-    h: number,
-    w: number,
-    depth: number
-  ): void {
+  private splitRecursively({
+    x,
+    y,
+    h,
+    w,
+    depth,
+    splitHistory
+  }: {
+    x: number;
+    y: number;
+    h: number;
+    w: number;
+    depth: number;
+    splitHistory: number[];
+  }): void {
     if (w <= this.actualSize || h <= this.actualSize || depth < 0) {
       this.drawRect(x, y, h, w);
       return;
     }
 
     let isHorizontalSplit: number = rand(0, 1);
-    if (this.splitHistory.length > 2) {
-      const latest: number = this.splitHistory.at(-1);
-      const similarInRow: boolean = this.splitHistory
+    if (splitHistory.length > 2) {
+      const latest: number = splitHistory.at(-1);
+      const similarInRow: boolean = splitHistory
         .slice(-2, -1)
         .every((el) => el === latest);
       if (similarInRow) {
@@ -66,20 +79,48 @@ class MondrianCompositionVisual {
       }
     }
 
-    this.splitHistory.push(isHorizontalSplit);
+    splitHistory.push(isHorizontalSplit);
 
     if (isHorizontalSplit === 0) {
       const grids = h / this.actualSize;
       const splitSize: number = rand(1, grids - 1);
       const height: number = splitSize * this.actualSize;
-      this.splitRecursively(x, y, height, w, depth - 1);
-      this.splitRecursively(x, y + height, h - height, w, depth - 1);
+      this.splitRecursively({
+        x,
+        y,
+        h: height,
+        w,
+        depth: depth - 1,
+        splitHistory: [...splitHistory]
+      });
+      this.splitRecursively({
+        x,
+        y: y + height,
+        h: h - height,
+        w,
+        depth: depth - 1,
+        splitHistory: [...splitHistory]
+      });
     } else {
       const grids = w / this.actualSize;
       const splitSize: number = rand(1, grids - 1);
       const width: number = splitSize * this.actualSize;
-      this.splitRecursively(x, y, h, width, depth - 1);
-      this.splitRecursively(x + width, y, h, w - width, depth - 1);
+      this.splitRecursively({
+        x,
+        y,
+        h,
+        w: width,
+        depth: depth - 1,
+        splitHistory: [...splitHistory]
+      });
+      this.splitRecursively({
+        x: x + width,
+        y,
+        h,
+        w: w - width,
+        depth: depth - 1,
+        splitHistory: [...splitHistory]
+      });
     }
   }
 
