@@ -90,7 +90,7 @@ const Demo = () => {
         });
       });
 
-    setState({ ...state, check: status });
+    setState((currentState) => ({ ...currentState, check: status }));
 
     return () => {
       dataSubscription.unsubscribe();

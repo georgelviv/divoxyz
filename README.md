@@ -6,10 +6,10 @@
 
 ## TODO
 
-- tag
-- article link in new tab
-- post details
-- demo full screen?
+- Localstorage
+- Google analytics
+- check bundle size if correct
+- Requirements section (maybe bu)
 
 ## IDEAS
 

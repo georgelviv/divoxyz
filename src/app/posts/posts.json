@@ -1,5 +1,13 @@
 [
   {
+    "title": "GPS Serial Module",
+    "id": "gps-serial-module",
+    "description": "Locate position on map with GPS Module over UART connection.",
+    "date": "2024-04-03T00:00:00.000Z",
+    "tags": ["embedded"],
+    "demoBackground": "#aad3df"
+  },
+  {
     "title": "Mondrian Composition",
     "id": "mondrian-composition",
     "description": "Generated with code random pattern like Mondrian Composition.",

@@ -13,7 +13,7 @@ jobs:
         working-directory: functions
         run: bun install
       - name: Deploy to Firebase
-        uses: w9jds/firebase-action@master
+        uses: w9jds/firebase-action@v13.4.0
         with:
           args: deploy
         env:

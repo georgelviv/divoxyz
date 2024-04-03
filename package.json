@@ -18,7 +18,7 @@
     "emulator": "firebase emulators:start",
     "preview": "cross-env NODE_ENV=production node server",
     "prepare": "husky",
-    "analyze-bundle": "bunx vite-bundle-visualizer"
+    "analyze-bundle": "bunx vite-bundle-visualizer --config configs/vite.config.ts"
   },
   "devDependencies": {
     "@types/bun": "latest",
@@ -51,6 +51,7 @@
     "firebase": "^10.8.1",
     "framer-motion": "^11.0.13",
     "lucide-react": "^0.363.0",
+    "ol": "^9.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-markdown": "^9.0.1",

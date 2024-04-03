@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { motion } from 'framer-motion';
 import { ComponentProps } from 'react';
 import { ButtonIcon, ButtonTheme } from './button.models';
-import { Expand, Minimize, X } from 'lucide-react';
+import { Expand, Minimize, Usb, X } from 'lucide-react';
 
 interface Props extends ComponentProps<'button'> {
   children?: JSX.Element | string | string[];
@@ -41,6 +41,8 @@ const Button = ({
       iconContent = <Minimize />;
     } else if (icon === 'x') {
       iconContent = <X />;
+    } else if (icon === 'usb') {
+      iconContent = <Usb />;
     }
   }
 

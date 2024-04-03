@@ -7,10 +7,28 @@
 
   p {
     text-indent: 20px;
-    margin-bottom: 16px;
+    margin-top: 16px;
+
+    &:first-of-type {
+      margin-top: 0;
+    }
+  }
+
+  p + ul {
+    margin-bottom: 0;
   }
 
   blockquote {
     font-style: italic;
+  }
+
+  ul {
+    margin-left: 20px;
+    list-style-type: disc;
+  }
+
+  hr {
+    margin-top: 16px;
+    margin-bottom: 16px;
   }
 }
