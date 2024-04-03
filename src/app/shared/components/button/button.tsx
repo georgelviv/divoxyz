@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { motion } from 'framer-motion';
 import { ComponentProps } from 'react';
 import { ButtonIcon, ButtonTheme } from './button.models';
-import { Expand, Minimize } from 'lucide-react';
+import { Expand, Minimize, X } from 'lucide-react';
 
 interface Props extends ComponentProps<'button'> {
   children?: JSX.Element | string | string[];
@@ -28,7 +28,7 @@ const Button = ({
 
   if (theme) {
     if (theme === 'text') {
-      cssClasses = classNames(cssClasses, 'border-0 bg-transparent px-2');
+      cssClasses = classNames(cssClasses, 'border-0 bg-transparent px-1');
     }
   }
 
@@ -39,6 +39,8 @@ const Button = ({
       iconContent = <Expand />;
     } else if (icon === 'minimize') {
       iconContent = <Minimize />;
+    } else if (icon === 'x') {
+      iconContent = <X />;
     }
   }
 
