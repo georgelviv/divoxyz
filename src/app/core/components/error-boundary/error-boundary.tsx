@@ -1,3 +1,4 @@
+import { TriangleAlert } from 'lucide-react';
 import { isRouteErrorResponse, useRouteError } from 'react-router-dom';
 
 const ErrorBoundary = () => {
@@ -6,7 +7,7 @@ const ErrorBoundary = () => {
   if (isRouteErrorResponse(error)) {
     return (
       <h1>
-        {error.status} {error.statusText}
+        <TriangleAlert /> {error.status} {error.statusText}
       </h1>
     );
   }

@@ -1,1 +1,0 @@
-https://shawneither.hashnode.dev/generative-mondrian-css-grid
