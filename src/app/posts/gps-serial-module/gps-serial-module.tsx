@@ -2,15 +2,16 @@ import PostLayout from '@core/components/post-layout/post-layout';
 import article from './article.md?raw';
 import { Map } from '@shared/components/map';
 import { ConnectSerialDevice } from '@shared/components/connect-serial-device';
+import { useCallback } from 'react';
 
 const Demo = () => {
-  const handleConnect = () => {
+  const handleConnect = useCallback(() => {
     console.log('connect handler');
-  };
+  }, []);
 
-  const handleDisconnect = () => {
+  const handleDisconnect = useCallback(() => {
     console.log('disconnect handler');
-  };
+  }, []);
 
   return (
     <div className="aspect-square max-h-full max-w-full w-full relative">

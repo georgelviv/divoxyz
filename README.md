@@ -9,7 +9,10 @@
 - Localstorage
 - Google analytics
 - check bundle size if correct
-- Requirements section (maybe bu)
+- Requirements section (maybe blockquite)
+- error cannot desctrucre
+- install ol
+- log errors in cloud function
 
 ## IDEAS
 
