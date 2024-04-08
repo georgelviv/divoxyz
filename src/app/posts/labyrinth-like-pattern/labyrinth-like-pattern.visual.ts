@@ -17,7 +17,7 @@ class LabyrinthLikePatternVisual {
 
     for (let x = 0; x < width; x += this.stepSize) {
       for (let y = 0; y < height; y += this.stepSize) {
-        if (noise(x * this.rez, y * this.rez, 0) > 0) {
+        if (noise(x * this.rez, y * this.rez, 0) > 0.5) {
           this.canva.line(x, y, x + this.stepSize, y + this.stepSize);
         } else {
           this.canva.line(x + this.stepSize, y, x, y + this.stepSize);

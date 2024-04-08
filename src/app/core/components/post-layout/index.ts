@@ -1,1 +1,1 @@
-export { default as Post } from './post';
+export { default as PostLayout } from './post-layout';

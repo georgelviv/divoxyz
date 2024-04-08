@@ -1,4 +1,4 @@
-import PostLayout from '@core/components/post-layout/post-layout';
+import { PostLayout } from '@core/components/post-layout';
 import article from './article.md?raw';
 import { Map } from '@shared/components/map';
 import { ConnectSerialDevice } from '@shared/components/connect-serial-device';
