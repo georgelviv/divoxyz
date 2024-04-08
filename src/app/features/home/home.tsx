@@ -6,7 +6,9 @@ import { Button } from '@shared/components/button';
 
 const Home = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  let filteredPosts: Post[] = posts;
+  let filteredPosts: Post[] = posts.filter((p) => {
+    return !p.hidden;
+  });
   const qParam: string = searchParams.get('q');
 
   if (qParam) {

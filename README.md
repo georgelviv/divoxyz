@@ -10,6 +10,7 @@
 - Google analytics
 - Requirements section (maybe blockquite)
 - error cannot desctrucre
+- contact section
 
 ## IDEAS
 

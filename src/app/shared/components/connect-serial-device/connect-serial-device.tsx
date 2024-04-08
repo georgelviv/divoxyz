@@ -6,9 +6,10 @@ import {
 import { useEffect, useState } from 'react';
 import { Button } from '../button';
 import { Warning } from '../warning';
+import { SerialDevice } from './connect-serial-device.models';
 
 interface ConnectSerialDeviceProps {
-  onConnect: () => void;
+  onConnect: (device: SerialDevice) => void;
   onDisconnect: () => void;
 }
 
@@ -24,23 +25,30 @@ const ConnectSerialDevice = ({
     const device = new WebSerialDevice();
 
     setWebSerialDevice(device);
+  }, []);
 
-    const disconnectSubscription = device.getDisconnected$().subscribe(() => {
-      setConnectStatus(WebSerialDeviceConnectStatus.disconnected);
-      onDisconnect();
-    });
+  useEffect(() => {
+    if (!webSerialDevice) {
+      return;
+    }
+    const disconnectSubscription = webSerialDevice
+      .getDisconnected$()
+      .subscribe(() => {
+        setConnectStatus(WebSerialDeviceConnectStatus.disconnected);
+        onDisconnect();
+      });
 
     return () => {
       disconnectSubscription.unsubscribe();
     };
-  }, [onDisconnect]);
+  }, [webSerialDevice, onDisconnect]);
 
   const handleConnect = async () => {
     const response: WebSerialDeviceConnectResponse =
       await webSerialDevice.connect();
     setConnectStatus(response.status);
     if (response.status === WebSerialDeviceConnectStatus.connected) {
-      onConnect();
+      onConnect(response.device);
     }
   };
 
