@@ -38,7 +38,7 @@ class Particle {
   }
 
   public show(): void {
-    this.canva.stroke('red', 0.5);
+    this.canva.stroke('red', 0.1);
     this.canva.circle(this.position.x, this.position.y, 1);
   }
 
