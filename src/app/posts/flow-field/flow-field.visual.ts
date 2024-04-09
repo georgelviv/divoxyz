@@ -1,11 +1,13 @@
 import { Canva } from '@shared/utils/canva.utils';
-import { Vector, polarToCartesian, rand } from '@shared/utils/math.utils';
+import { polarToCartesian, rand } from '@shared/utils/math.utils';
 import { noise } from '@shared/utils/noise.utils';
+import { Vector, getVectorFromAngle } from '@shared/utils/vector.utils';
 
 class Particle {
   private position: Vector;
-  private velocity: Vector = new Vector(rand(0, 100) / 100, rand(0, 100) / 100);
+  private velocity: Vector = new Vector(0, 0);
   private acceleration: Vector = new Vector(0, 0);
+  private maxSpeed: number = 1;
 
   private width: number;
   private height: number;
@@ -26,6 +28,7 @@ class Particle {
 
   public update(): void {
     this.velocity.add(this.acceleration);
+    this.velocity.limit(this.maxSpeed);
     this.position.add(this.velocity);
     this.acceleration.multiply(0);
   }
@@ -54,12 +57,12 @@ class Particle {
     }
   }
 
-  public follow(flowField: number[]): void {
-
+  public follow(flowField: Vector[]): void {
     const currentCol: number = Math.floor(this.position.x / this.scale);
     const currentRow: number = Math.floor(this.position.y / this.scale);
     const index: number = currentCol + currentRow * this.cols;
-    console.log(flowField[index]);
+
+    this.applyForce(flowField[index]);
   }
 }
 
@@ -69,10 +72,10 @@ class FlowFieldVisual {
   private scale: number = 10;
   private sc: number = 0.1;
 
-  private particlesCount: number = 1;
+  private particlesCount: number = 100;
 
   private particles: Particle[] = [];
-  private flowField: number[] = [];
+  private flowField: Vector[] = [];
 
   constructor(canvasEl: HTMLCanvasElement) {
     this.canva = new Canva(canvasEl, (height, width) => {
@@ -120,7 +123,7 @@ class FlowFieldVisual {
         const angle: number =
           noise(row * this.sc, col * this.sc, z) * Math.PI * 2;
 
-        this.flowField[index] = angle;
+        this.flowField[index] = getVectorFromAngle(angle, 0.1);
         this.canva.stroke('black', 0.1);
         const [x, y] = polarToCartesian(this.scale, angle);
 
