@@ -133,7 +133,6 @@ export class Canva {
 
   private update(draw: DrawCallback): void {
     this.animationId = requestAnimationFrame(() => {
-      this.clear();
       draw(this.originalHeight, this.originalWidth);
 
       if (this.isActive) {

@@ -7,7 +7,7 @@ class Particle {
   private position: Vector;
   private velocity: Vector = new Vector(0, 0);
   private acceleration: Vector = new Vector(0, 0);
-  private maxSpeed: number = 1;
+  private maxSpeed: number = 4;
 
   private width: number;
   private height: number;
@@ -38,7 +38,7 @@ class Particle {
   }
 
   public show(): void {
-    this.canva.stroke('red');
+    this.canva.stroke('red', 0.5);
     this.canva.circle(this.position.x, this.position.y, 1);
   }
 
@@ -72,7 +72,8 @@ class FlowFieldVisual {
   private scale: number = 10;
   private sc: number = 0.1;
 
-  private particlesCount: number = 100;
+  private particlesCount: number = 200;
+  private showField: boolean = false;
 
   private particles: Particle[] = [];
   private flowField: Vector[] = [];
@@ -95,9 +96,7 @@ class FlowFieldVisual {
   private draw(height: number, width: number): void {
     let z: number = 0;
     this.canva.startAnimation(() => {
-      this.canva.background('#ffffff');
-
-      this.drawField(height, width, z);
+      this.updateField(height, width, z);
 
       this.particles.forEach((p) => {
         p.follow(this.flowField);
@@ -106,31 +105,37 @@ class FlowFieldVisual {
         p.edges();
       });
 
-      z += 0.01;
+      z += 0.0003;
     });
   }
 
-  private drawField(height: number, width: number, z: number): void {
+  private updateField(height: number, width: number, z: number): void {
     const cols: number = height / this.scale;
     const rows: number = width / this.scale;
 
     for (let row = 0; row < rows; row++) {
       for (let col = 0; col < cols; col++) {
         const index: number = col + row * cols;
-        this.canva.saveState();
-        this.canva.translate(row * this.scale, col * this.scale);
-
         const angle: number =
-          noise(row * this.sc, col * this.sc, z) * Math.PI * 2;
+          noise(row * this.sc, col * this.sc, z) * Math.PI * 4;
+        this.flowField[index] = getVectorFromAngle(angle, 1);
 
-        this.flowField[index] = getVectorFromAngle(angle, 0.1);
-        this.canva.stroke('black', 0.1);
-        const [x, y] = polarToCartesian(this.scale, angle);
-
-        this.canva.line(0, 0, x, y);
-        this.canva.restoreState();
+        if (this.showField) {
+          this.drawField(row, col, angle);
+        }
       }
     }
+  }
+
+  private drawField(row: number, col: number, angle: number): void {
+    this.canva.saveState();
+    this.canva.translate(row * this.scale, col * this.scale);
+
+    this.canva.stroke('black', 0.1);
+    const [x, y] = polarToCartesian(this.scale, angle);
+
+    this.canva.line(0, 0, x, y);
+    this.canva.restoreState();
   }
 
   private getPadding(size: number): number {
