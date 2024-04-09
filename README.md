@@ -10,7 +10,6 @@
 - Google analytics
 - Requirements section (maybe blockquite)
 - error cannot desctrucre
-- contact section
 
 ## IDEAS
 
@@ -32,3 +31,9 @@
 ### KaTeX
 
 https://katex.org/docs/supported.html#operators
+
+## Demos ideas
+
+- OpenCV
+- Box2d
+- Self-driving car https://www.youtube.com/watch?v=Rs_rAxEsAvI&t=1915s

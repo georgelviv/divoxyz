@@ -56,8 +56,11 @@ export class Canva {
     this.ctx.fillStyle = color;
   }
 
-  public stroke(color: string): void {
+  public stroke(color: string, alpha?: number): void {
     this.ctx.strokeStyle = color;
+    if (alpha) {
+      this.ctx.globalAlpha = alpha;
+    }
   }
 
   public strokeWidth(size: number): void {
