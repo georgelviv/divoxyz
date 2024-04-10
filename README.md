@@ -6,7 +6,7 @@
 
 ## TODO
 
-- error cannot destructure
+- Cannot destructure property 'animation' of 'this.resolved' as it is undefined.
 - Google analytics
 - download code as zip
 - rss feed
