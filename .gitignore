@@ -8,3 +8,4 @@ configs/dns.txt
 ui-debug.log
 
 certs/
+.env

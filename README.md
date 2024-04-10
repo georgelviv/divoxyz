@@ -10,8 +10,7 @@
 - Google analytics
 - download code as zip
 - rss feed
-- download picture
-- capture video?
+- download picture/animation
 - service worker
 
 ## IDEAS
