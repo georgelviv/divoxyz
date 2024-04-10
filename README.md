@@ -6,10 +6,13 @@
 
 ## TODO
 
-- service worker
+- error cannot destructer
 - Google analytics
-- Requirements section (maybe blockquite)
-- error cannot desctrucre
+- Requirements section/Warning section with custom blockquite
+- download code as zip
+- download picture
+- capture video?
+- service worker
 
 ## IDEAS
 

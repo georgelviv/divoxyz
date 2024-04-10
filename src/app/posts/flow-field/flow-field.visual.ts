@@ -5,6 +5,8 @@ import { Vector, getVectorFromAngle } from '@shared/utils/vector.utils';
 
 class Particle {
   private position: Vector;
+  private previousPosition: Vector;
+
   private velocity: Vector = new Vector(0, 0);
   private acceleration: Vector = new Vector(0, 0);
   private maxSpeed: number = 4;
@@ -16,21 +18,36 @@ class Particle {
   private cols: number;
   private canva: Canva;
 
-  constructor(canva: Canva, height: number, width: number, scale: number) {
+  constructor({
+    canva,
+    height,
+    width,
+    scale
+  }: {
+    canva: Canva;
+    height: number;
+    width: number;
+    scale: number;
+  }) {
     this.canva = canva;
 
     this.height = height;
     this.width = width;
     this.scale = scale;
-    this.cols = this.height / this.scale;
-    this.position = new Vector(rand(0, height), rand(0, width));
+    this.cols = this.width / this.scale;
+    this.position = new Vector(rand(1, height - 1), rand(1, width - 1));
+    this.previousPosition = this.position.copy();
   }
 
   public update(): void {
+    this.previousPosition = this.position.copy();
+
     this.velocity.add(this.acceleration);
     this.velocity.limit(this.maxSpeed);
     this.position.add(this.velocity);
     this.acceleration.multiply(0);
+
+    this.edges();
   }
 
   public applyForce(force: Vector): void {
@@ -38,31 +55,50 @@ class Particle {
   }
 
   public show(): void {
-    this.canva.stroke('red', 0.1);
-    this.canva.circle(this.position.x, this.position.y, 1);
+    this.canva.stroke('red', 0.05);
+    this.canva.line(
+      this.position.x,
+      this.position.y,
+      this.previousPosition.x,
+      this.previousPosition.y
+    );
   }
 
-  public edges(): void {
-    if (this.position.x > this.width) {
-      this.position.x = 0;
+  private edges(): void {
+    if (this.position.x >= this.width) {
+      this.position.x = 1;
+      this.previousPosition = this.position.copy();
     }
-    if (this.position.x < 0) {
-      this.position.x = this.width;
+    if (this.position.x <= 0) {
+      this.position.x = this.width - 1;
+      this.previousPosition = this.position.copy();
     }
-    if (this.position.y > this.height) {
-      this.position.y = 0;
+    if (this.position.y >= this.height) {
+      this.position.y = 1;
+      this.previousPosition = this.position.copy();
     }
-    if (this.position.y < 0) {
-      this.position.y = this.height;
+    if (this.position.y <= 0) {
+      this.position.y = this.height - 1;
+      this.previousPosition = this.position.copy();
     }
   }
 
   public follow(flowField: Vector[]): void {
+    const index: number = this.getCurrentIndex();
+    if (flowField[index]) {
+      this.applyForce(flowField[index]);
+    } else {
+      console.error(
+        'no force :(',
+        `length=${flowField.length}, index${index}, x=${this.position.x}, y=${this.position.y}`
+      );
+    }
+  }
+
+  private getCurrentIndex(): number {
     const currentCol: number = Math.floor(this.position.x / this.scale);
     const currentRow: number = Math.floor(this.position.y / this.scale);
-    const index: number = currentCol + currentRow * this.cols;
-
-    this.applyForce(flowField[index]);
+    return currentCol + currentRow * this.cols;
   }
 }
 
@@ -80,21 +116,22 @@ class FlowFieldVisual {
 
   constructor(canvasEl: HTMLCanvasElement) {
     this.canva = new Canva(canvasEl, (height, width) => {
-      const paddingLeft: number = this.getPadding(height);
-      const paddingTop: number = this.getPadding(width);
+      const [paddingLeft, adjustedWidth] = this.getPaddingAndSide(height);
+      const [paddingTop, adjustedHeight] = this.getPaddingAndSide(width);
 
       this.flowField = [];
-      this.generateParticles(height, width);
+      this.generateParticles(adjustedHeight, adjustedWidth);
 
       this.canva.saveState();
       this.canva.translate(paddingLeft, paddingTop);
-      this.draw(height, width);
+      this.draw(adjustedHeight, adjustedWidth);
       this.canva.restoreState();
     });
   }
 
   private draw(height: number, width: number): void {
     let z: number = 0;
+
     this.canva.startAnimation(() => {
       this.updateField(height, width, z);
 
@@ -102,16 +139,15 @@ class FlowFieldVisual {
         p.follow(this.flowField);
         p.update();
         p.show();
-        p.edges();
       });
 
-      z += 0.0003;
+      z += 0.003;
     });
   }
 
   private updateField(height: number, width: number, z: number): void {
-    const cols: number = height / this.scale;
-    const rows: number = width / this.scale;
+    const cols: number = width / this.scale;
+    const rows: number = height / this.scale;
 
     for (let row = 0; row < rows; row++) {
       for (let col = 0; col < cols; col++) {
@@ -138,15 +174,22 @@ class FlowFieldVisual {
     this.canva.restoreState();
   }
 
-  private getPadding(size: number): number {
-    return (size - Math.floor(size / this.scale) * this.scale) / 2;
+  private getPaddingAndSide(size: number): [padding: number, side: number] {
+    const padding: number =
+      (size - Math.floor(size / this.scale) * this.scale) / 2;
+    return [padding, size - padding * 2];
   }
 
   private generateParticles(height: number, width: number): void {
     this.particles = [];
 
     for (let i = 0; i < this.particlesCount; i++) {
-      const p: Particle = new Particle(this.canva, height, width, this.scale);
+      const p: Particle = new Particle({
+        canva: this.canva,
+        height,
+        width,
+        scale: this.scale
+      });
       this.particles.push(p);
     }
   }

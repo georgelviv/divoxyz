@@ -36,7 +36,7 @@ export class Canva {
   }
 
   public startAnimation(draw: DrawCallback): void {
-    this.stop();
+    this.stopAnimation();
 
     this.isActive = true;
     this.update(draw);
@@ -46,7 +46,7 @@ export class Canva {
     this.ctx.clearRect(0, 0, this.originalWidth, this.originalHeight);
   }
 
-  public stop(): void {
+  public stopAnimation(): void {
     this.isActive = false;
 
     cancelAnimationFrame(this.animationId);

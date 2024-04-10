@@ -42,6 +42,10 @@ export class Vector {
   public getMagnitude(): number {
     return this.x ** 2 + this.y ** 2;
   }
+
+  public copy(): Vector {
+    return new Vector(this.x, this.y);
+  }
 }
 
 export function getVectorFromAngle(
