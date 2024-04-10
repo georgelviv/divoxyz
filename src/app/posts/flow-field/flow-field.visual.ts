@@ -33,9 +33,10 @@ class Particle {
 
     this.height = height;
     this.width = width;
+
     this.scale = scale;
     this.cols = this.width / this.scale;
-    this.position = new Vector(rand(1, height - 1), rand(1, width - 1));
+    this.position = new Vector(rand(1, width - 1), rand(1, height - 1));
     this.previousPosition = this.position.copy();
   }
 
@@ -55,7 +56,7 @@ class Particle {
   }
 
   public show(): void {
-    this.canva.stroke('red', 0.05);
+    this.canva.stroke('#d90947', 0.05);
     this.canva.line(
       this.position.x,
       this.position.y,
@@ -90,6 +91,11 @@ class Particle {
     } else {
       console.error(
         'no force :(',
+        `cols=${this.cols}`,
+        `height=${this.height}`,
+        `width=${this.width}`,
+        `currentCol=${Math.floor(this.position.x / this.scale)}`,
+        `currentRow=${Math.floor(this.position.y / this.scale)}`,
         `length=${flowField.length}, index${index}, x=${this.position.x}, y=${this.position.y}`
       );
     }
@@ -116,8 +122,8 @@ class FlowFieldVisual {
 
   constructor(canvasEl: HTMLCanvasElement) {
     this.canva = new Canva(canvasEl, (height, width) => {
-      const [paddingLeft, adjustedWidth] = this.getPaddingAndSide(height);
-      const [paddingTop, adjustedHeight] = this.getPaddingAndSide(width);
+      const [paddingLeft, adjustedWidth] = this.getPaddingAndSide(width);
+      const [paddingTop, adjustedHeight] = this.getPaddingAndSide(height);
 
       this.flowField = [];
       this.generateParticles(adjustedHeight, adjustedWidth);
@@ -141,7 +147,7 @@ class FlowFieldVisual {
         p.show();
       });
 
-      z += 0.003;
+      z += 0.005;
     });
   }
 

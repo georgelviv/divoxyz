@@ -6,10 +6,12 @@
 
 ## TODO
 
+- publish post
 - error cannot destructer
 - Google analytics
 - Requirements section/Warning section with custom blockquite
 - download code as zip
+- rss feed
 - download picture
 - capture video?
 - service worker
