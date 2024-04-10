@@ -147,7 +147,7 @@ class FlowFieldVisual {
         p.show();
       });
 
-      z += 0.005;
+      z += 0.003;
     });
   }
 

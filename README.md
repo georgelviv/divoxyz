@@ -7,7 +7,7 @@
 ## TODO
 
 - Cannot destructure property 'animation' of 'this.resolved' as it is undefined.
-- Google analytics
+- Google analytics notify route visit
 - download code as zip
 - rss feed
 - download picture/animation
