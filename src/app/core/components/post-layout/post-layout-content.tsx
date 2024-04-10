@@ -8,7 +8,7 @@ interface PostLayoutContentProps {
 
 function LinkRenderer(props: {
   href?: string;
-  children: JSX.Element | string;
+  children?: JSX.Element | string | any;
 }) {
   return (
     <a href={props.href} target="_blank" rel="noreferrer">

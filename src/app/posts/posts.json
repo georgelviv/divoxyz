@@ -5,7 +5,8 @@
     "description": "Flow field animation with perlin noise.",
     "date": "2024-04-08T00:00:00.000Z",
     "tags": ["visual", "animation"],
-    "demoBackground": "#ffffff"
+    "demoBackground": "#ffffff",
+    "published": false
   },
   {
     "title": "GPS Serial Module",
@@ -14,7 +15,7 @@
     "date": "2024-04-03T00:00:00.000Z",
     "tags": ["embedded"],
     "demoBackground": "#aad3df",
-    "hidden": true
+    "published": false
   },
   {
     "title": "Mondrian Composition",
@@ -22,7 +23,8 @@
     "description": "Generated with code random pattern like Mondrian Composition.",
     "date": "2024-04-01T00:00:00.000Z",
     "tags": ["visual", "pattern"],
-    "demoBackground": "#ffffff"
+    "demoBackground": "#ffffff",
+    "published": true
   },
   {
     "title": "Labyrinth Like Pattern",
@@ -30,7 +32,8 @@
     "description": "Labyrinth like pattern with Perlin noise.",
     "date": "2024-03-29T00:00:00.000Z",
     "tags": ["visual", "pattern"],
-    "demoBackground": "#adefda"
+    "demoBackground": "#adefda",
+    "published": true
   },
   {
     "title": "Rainbow Circles",
@@ -38,7 +41,8 @@
     "description": "Rainbow Circles animation.",
     "date": "2024-03-28T00:00:00.000Z",
     "tags": ["visual", "animation"],
-    "demoBackground": "#dcdcdc"
+    "demoBackground": "#dcdcdc",
+    "published": true
   },
   {
     "title": "Read serial in browser",
@@ -46,7 +50,8 @@
     "description": "Read serial communication in browser with WebSerial API.",
     "date": "2024-03-27T00:00:00.000Z",
     "tags": ["embedded"],
-    "demoBackground": "#ffffff"
+    "demoBackground": "#ffffff",
+    "published": true
   },
   {
     "title": "Wave Pattern",
@@ -54,6 +59,7 @@
     "description": "Wave Pattern animation.",
     "date": "2024-03-26T00:00:00.000Z",
     "tags": ["visual", "animation"],
-    "demoBackground": "#E1EAF7"
+    "demoBackground": "#E1EAF7",
+    "published": true
   }
 ]

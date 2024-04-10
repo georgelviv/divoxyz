@@ -5,5 +5,5 @@ export interface Post {
   date: string;
   demoBackground: string;
   tags: string[];
-  hidden?: boolean;
+  published: boolean;
 }

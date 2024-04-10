@@ -6,10 +6,8 @@
 
 ## TODO
 
-- publish post
-- error cannot destructer
+- error cannot destructure
 - Google analytics
-- Requirements section/Warning section with custom blockquite
 - download code as zip
 - rss feed
 - download picture
