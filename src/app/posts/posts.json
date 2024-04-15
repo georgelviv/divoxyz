@@ -1,5 +1,14 @@
 [
   {
+    "title": "Shader Kaleidoscope",
+    "id": "shader-kaleidoscope",
+    "description": "Shader Kaleidoscope with WebGL.",
+    "date": "2024-04-15T00:00:00.000Z",
+    "tags": ["visual", "animation", "webgl", "shader"],
+    "demoBackground": "#ffffff",
+    "published": false
+  },
+  {
     "title": "Flow field",
     "id": "flow-field",
     "description": "Flow field animation with particles with perlin noise.",
