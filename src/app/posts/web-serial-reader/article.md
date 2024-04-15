@@ -1,3 +1,4 @@
+> [!IMPORTANT]
 > This demo requires any connected serial device (for example **GPS UART module** connected over UART to USB).
 
 Serial communication is a method of transferring data between digital devices by sending the data bit by bit sequentially over a single communication line.

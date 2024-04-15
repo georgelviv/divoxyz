@@ -14,28 +14,31 @@ const Demo = () => {
     useState<Subscription>(null);
   const [data, setData] = useState<string>('');
 
-  const handleConnect = useCallback(async (device: SerialDevice) => {
-    if (deviceSubscription) {
-      deviceSubscription.unsubscribe();
-    }
+  const handleConnect = useCallback(
+    async (device: SerialDevice) => {
+      if (deviceSubscription) {
+        deviceSubscription.unsubscribe();
+      }
 
-    const subscription: Subscription = from(device.reader.read())
-      .pipe(
-        expand((value) => {
-          return !value.done
-            ? from(device.reader.read()).pipe(delay(1000))
-            : EMPTY;
-        }),
-        map(({ value }) => {
-          return decoder.decode(value);
-        })
-      )
-      .subscribe((d) => {
-        setData((i) => i + d);
-      });
+      const subscription: Subscription = from(device.reader.read())
+        .pipe(
+          expand((value) => {
+            return !value.done
+              ? from(device.reader.read()).pipe(delay(1000))
+              : EMPTY;
+          }),
+          map(({ value }) => {
+            return decoder.decode(value);
+          })
+        )
+        .subscribe((d) => {
+          setData((i) => i + d);
+        });
 
-    setDeviceSubscription(subscription);
-  }, []);
+      setDeviceSubscription(subscription);
+    },
+    [deviceSubscription]
+  );
 
   parseNMEA(data);
 

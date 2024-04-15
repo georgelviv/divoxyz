@@ -5,4 +5,5 @@ In HTML5 Canvas, the [globalCompositeOperation](https://developer.mozilla.org/en
 
 To apply a blend mode only to particular shapes in HTML5 Canvas, the [save()](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/save) and [restore()](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/restore) methods of the canvas context `ctx` need to be applied. These methods allow to save and restore the current state of the canvas context, including transformation matrix, clipping region, and global composite operation (blend mode).
 
-> **_NOTE:_** Be aware running this demo will significantly slow down performance due of usage globalCompositeOperation
+> [!NOTE]
+> Be aware running this demo will significantly slow down performance due of usage globalCompositeOperation

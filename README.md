@@ -6,8 +6,8 @@
 
 ## TODO
 
+- https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#alerts
 - Cannot destructure property 'animation' of 'this.resolved' as it is undefined.
-- Google analytics notify route visit
 - download code as zip
 - rss feed
 - download picture/animation

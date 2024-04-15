@@ -1,5 +1,6 @@
 import Markdown from 'react-markdown';
 import rehypeKatex from 'rehype-katex';
+import { remarkAlert } from 'remark-github-blockquote-alert';
 import remarkMath from 'remark-math';
 
 interface PostLayoutContentProps {
@@ -22,7 +23,7 @@ const PostLayoutContent = ({ article }: PostLayoutContentProps) => {
     <Markdown
       components={{ a: LinkRenderer }}
       className="post-layout"
-      remarkPlugins={[remarkMath]}
+      remarkPlugins={[remarkMath, remarkAlert]}
       rehypePlugins={[rehypeKatex]}
     >
       {article}
