@@ -8,15 +8,12 @@ import { Button } from '../button';
 import { Warning } from '../warning';
 import { SerialDevice } from './connect-serial-device.models';
 
-interface ConnectSerialDeviceProps {
+interface Props {
   onConnect: (device: SerialDevice) => void;
   onDisconnect: () => void;
 }
 
-const ConnectSerialDevice = ({
-  onConnect,
-  onDisconnect
-}: ConnectSerialDeviceProps) => {
+const ConnectSerialDevice = ({ onConnect, onDisconnect }: Props) => {
   const [webSerialDevice, setWebSerialDevice] = useState<WebSerialDevice>(null);
   const [connectStatus, setConnectStatus] =
     useState<WebSerialDeviceConnectStatus>(null);

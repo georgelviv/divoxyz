@@ -2,11 +2,11 @@ import { Colors } from '@shared/models/colors.models';
 import { formateISODate } from '@shared/utils/general.utils';
 import { Calendar } from 'lucide-react';
 
-interface DateLabelProps {
+interface Props {
   date: string;
 }
 
-const DateLabel = ({ date }: DateLabelProps) => {
+const DateLabel = ({ date }: Props) => {
   return (
     <div className="flex gap-2 items-center">
       <Calendar size={16} color={Colors.secondary} />

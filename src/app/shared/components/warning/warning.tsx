@@ -1,11 +1,11 @@
 import classNames from 'classnames';
 import { TriangleAlert } from 'lucide-react';
 
-interface WarningProps {
+interface Props {
   children?: JSX.Element | string | string[];
 }
 
-const Warning = ({ children }: WarningProps) => {
+const Warning = ({ children }: Props) => {
   const css = classNames(
     'flex gap-2 bg-background p-2 rounded-md text-primary border border-primary'
   );
