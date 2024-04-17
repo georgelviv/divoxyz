@@ -63,8 +63,8 @@ export class WavePatternVisual {
   private canva: Canva;
 
   constructor(canvasEl: HTMLCanvasElement) {
-    this.canva = new Canva(canvasEl, (height, width) => {
-      this.init(height, width);
+    this.canva = new Canva(canvasEl, ({ originalHeight, originalWidth }) => {
+      this.init(originalHeight, originalWidth);
       this.draw();
     });
   }

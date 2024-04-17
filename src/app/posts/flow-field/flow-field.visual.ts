@@ -121,9 +121,11 @@ class FlowFieldVisual {
   private flowField: Vector[] = [];
 
   constructor(canvasEl: HTMLCanvasElement) {
-    this.canva = new Canva(canvasEl, (height, width) => {
-      const [paddingLeft, adjustedWidth] = this.getPaddingAndSide(width);
-      const [paddingTop, adjustedHeight] = this.getPaddingAndSide(height);
+    this.canva = new Canva(canvasEl, ({ originalHeight, originalWidth }) => {
+      const [paddingLeft, adjustedWidth] =
+        this.getPaddingAndSide(originalWidth);
+      const [paddingTop, adjustedHeight] =
+        this.getPaddingAndSide(originalHeight);
 
       this.flowField = [];
       this.generateParticles(adjustedHeight, adjustedWidth);

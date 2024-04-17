@@ -16,7 +16,7 @@ const WebglSafe = ({ checked, ...rest }: Props) => {
       console.log('not works');
       setWebglNotSupported(true);
     }
-  }, []);
+  }, [checked]);
 
   return (
     <>

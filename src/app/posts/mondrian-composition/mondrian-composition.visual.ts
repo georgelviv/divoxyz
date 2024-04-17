@@ -17,8 +17,8 @@ class MondrianCompositionVisual {
   private strokeColor: string = '#30303a';
 
   constructor(canvasEl: HTMLCanvasElement) {
-    this.canva = new Canva(canvasEl, (height: number, width: number) => {
-      this.init(height, width);
+    this.canva = new Canva(canvasEl, ({ originalHeight, originalWidth }) => {
+      this.init(originalHeight, originalWidth);
     });
   }
 

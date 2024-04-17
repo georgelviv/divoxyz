@@ -2,26 +2,24 @@ import vertexShaderSource from './shader-kaleidoscope.vert?raw';
 import fragmentShaderSource from './shader-kaleidoscope.frag?raw';
 
 import { debounce } from '@shared/utils/general.utils';
+import { resizeCanvas } from '@shared/utils/canvas.utils';
+import { rand } from '@shared/utils/math.utils';
 
 class ShaderKaleidoscopeVisual {
   private canvasEl: HTMLCanvasElement;
   private gl: WebGLRenderingContext;
   private program: WebGLProgram;
 
-  private height: number;
-  private width: number;
-
-  private originalWidth: number;
-  private originalHeight: number;
-
   constructor(canvasEl: HTMLCanvasElement) {
     this.canvasEl = canvasEl;
     this.init();
     const resizeCallback = debounce((width: number, height: number) => {
-      console.log(width, height);
       this.draw(width, height);
     }, 100);
-    this.handleResize(resizeCallback);
+
+    resizeCanvas(this.canvasEl, ({ width, height }) => {
+      resizeCallback(width, height);
+    });
   }
 
   private createShader(type: number, source: string): WebGLShader {
@@ -77,6 +75,10 @@ class ShaderKaleidoscopeVisual {
       this.program,
       'u_resolution'
     );
+    const colorUniformLocation = this.gl.getUniformLocation(
+      this.program,
+      'u_color'
+    );
 
     const positionBuffer = this.gl.createBuffer();
     this.gl.bindBuffer(this.gl.ARRAY_BUFFER, positionBuffer);
@@ -103,42 +105,47 @@ class ShaderKaleidoscopeVisual {
       0,
       0
     );
-    this.gl.uniform2f(resolutionUniformLocation, this.width, this.height);
+    this.gl.uniform2f(resolutionUniformLocation, width, height);
 
-    this.gl.drawArrays(this.gl.TRIANGLES, 0, 6);
+    for (let i = 0; i < 50; i++) {
+      this.drawRect({
+        x: rand(0, width),
+        y: rand(0, height),
+        width: rand(0, width),
+        height: rand(0, height)
+      });
+
+      this.gl.uniform4f(
+        colorUniformLocation,
+        Math.random(),
+        Math.random(),
+        Math.random(),
+        1
+      );
+      this.gl.drawArrays(this.gl.TRIANGLES, 0, 6);
+    }
   }
 
-  private handleResize(
-    resizeCallback: (width: number, height: number) => void
-  ): void {
-    this.originalHeight = this.canvasEl.height;
-    this.originalWidth = this.canvasEl.width;
-    this.updateScaleRatio();
-
-    const resizeObserver = new ResizeObserver((entries) => {
-      const { height, width } = entries[0].contentRect;
-      if (!height || !width) {
-        return;
-      }
-
-      this.originalWidth = width;
-      this.originalHeight = height;
-
-      this.updateScaleRatio();
-      resizeCallback(this.originalWidth, this.originalHeight);
-    });
-
-    resizeObserver.observe(this.canvasEl);
-  }
-
-  private updateScaleRatio(): void {
-    const ratio = window.devicePixelRatio || 1;
-
-    this.width = this.originalWidth * ratio;
-    this.canvasEl.width = this.width;
-
-    this.height = this.originalHeight * ratio;
-    this.canvasEl.height = this.height;
+  private drawRect({
+    x,
+    y,
+    width,
+    height
+  }: {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+  }): void {
+    const x1 = x;
+    const x2 = x + width;
+    const y1 = y;
+    const y2 = y + height;
+    this.gl.bufferData(
+      this.gl.ARRAY_BUFFER,
+      new Float32Array([x1, y1, x2, y1, x1, y2, x1, y2, x2, y1, x2, y2]),
+      this.gl.STATIC_DRAW
+    );
   }
 }
 

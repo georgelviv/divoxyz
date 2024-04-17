@@ -1,6 +1,7 @@
+import { ResizeCallback } from '@shared/models/shared.models';
+import { resizeCanvas } from './canvas.utils';
 import { debounce } from './general.utils';
 
-type ResizeObserverCallback = (height: number, width: number) => void;
 type DrawCallback = (height: number, width: number) => void;
 
 export class Canva {
@@ -14,20 +15,20 @@ export class Canva {
   private height: number;
   private ctx: CanvasRenderingContext2D;
 
-  private resizeCallback: ResizeObserverCallback;
+  private resizeCallback: ResizeCallback;
 
-  constructor(
-    canvasEl: HTMLCanvasElement,
-    resizeCallback: ResizeObserverCallback
-  ) {
+  constructor(canvasEl: HTMLCanvasElement, resizeCallback: ResizeCallback) {
     this.canvasEl = canvasEl;
     this.originalHeight = canvasEl.height;
     this.originalWidth = canvasEl.width;
     this.resizeCallback = debounce(resizeCallback, 100);
+
     this.ctx = canvasEl.getContext('2d')!;
 
-    this.updateScaleRatio();
-    this.updateOnResize();
+    resizeCanvas(this.canvasEl, (values) => {
+      this.ctx.scale(values.ratio, values.ratio);
+      this.resizeCallback(values);
+    });
   }
 
   public background(color: string): void {
@@ -139,34 +140,5 @@ export class Canva {
         this.update(draw);
       }
     }) as unknown as number;
-  }
-
-  private updateScaleRatio(): void {
-    const ratio = window.devicePixelRatio || 1;
-
-    this.width = this.originalWidth * ratio;
-    this.canvasEl.width = this.width;
-
-    this.height = this.originalHeight * ratio;
-    this.canvasEl.height = this.height;
-
-    this.ctx.scale(ratio, ratio);
-  }
-
-  private updateOnResize(): void {
-    const resizeObserver = new ResizeObserver((entries) => {
-      const { height, width } = entries[0].contentRect;
-      if (!height || !width) {
-        return;
-      }
-
-      this.originalWidth = width;
-      this.originalHeight = height;
-
-      this.updateScaleRatio();
-      this.resizeCallback(this.originalHeight, this.originalWidth);
-    });
-
-    resizeObserver.observe(this.canvasEl);
   }
 }
