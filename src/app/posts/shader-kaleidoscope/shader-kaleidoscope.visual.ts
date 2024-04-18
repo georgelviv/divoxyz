@@ -1,68 +1,27 @@
 import vertexShaderSource from './shader-kaleidoscope.vert?raw';
 import fragmentShaderSource from './shader-kaleidoscope.frag?raw';
 
-import { debounce } from '@shared/utils/general.utils';
-import { resizeCanvas } from '@shared/utils/canvas.utils';
+import { WebG } from '@shared/classes/webg.class';
 
 class ShaderKaleidoscopeVisual {
   private canvasEl: HTMLCanvasElement;
   private gl: WebGLRenderingContext;
   private program: WebGLProgram;
 
+  private webG: WebG;
+
   constructor(canvasEl: HTMLCanvasElement) {
     this.canvasEl = canvasEl;
-    this.init();
-    const resizeCallback = debounce((width: number, height: number) => {
-      this.draw(width, height);
-    }, 100);
-
-    resizeCanvas(this.canvasEl, ({ width, height }) => {
-      resizeCallback(width, height);
-    });
-  }
-
-  private createShader(type: number, source: string): WebGLShader {
-    const shader: WebGLShader = this.gl.createShader(type);
-    this.gl.shaderSource(shader, source);
-    this.gl.compileShader(shader);
-    const success = this.gl.getShaderParameter(shader, this.gl.COMPILE_STATUS);
-    if (success) {
-      return shader;
-    }
-    console.log(this.gl.getShaderInfoLog(shader));
-    this.gl.deleteShader(shader);
-  }
-
-  private createProgram(
-    vertexShader: WebGLShader,
-    fragmentShader: WebGLShader
-  ): WebGLProgram {
-    const program: WebGLProgram = this.gl.createProgram();
-    this.gl.attachShader(program, vertexShader);
-    this.gl.attachShader(program, fragmentShader);
-    this.gl.linkProgram(program);
-
-    const success = this.gl.getProgramParameter(program, this.gl.LINK_STATUS);
-    if (success) {
-      return program;
-    }
-
-    console.log(this.gl.getProgramInfoLog(program));
-    this.gl.deleteProgram(program);
-  }
-
-  private init(): void {
-    this.gl = this.canvasEl.getContext('webgl');
-    const vertexShader = this.createShader(
-      this.gl.VERTEX_SHADER,
-      vertexShaderSource
-    );
-    const fragmentShader = this.createShader(
-      this.gl.FRAGMENT_SHADER,
-      fragmentShaderSource
+    this.webG = new WebG(
+      this.canvasEl,
+      [vertexShaderSource, fragmentShaderSource],
+      ({ height, width }) => {
+        this.draw(width, height);
+      }
     );
 
-    this.program = this.createProgram(vertexShader, fragmentShader);
+    this.program = this.webG.getProgram();
+    this.gl = this.webG.getGl();
   }
 
   private draw(width: number, height: number): void {
@@ -75,11 +34,6 @@ class ShaderKaleidoscopeVisual {
       this.gl.STATIC_DRAW
     );
 
-    this.animate(width, height);
-  }
-
-  private drawScene(width: number, height: number): void {
-    const positionBuffer = this.gl.createBuffer();
     const positionLocation = this.gl.getAttribLocation(
       this.program,
       'a_position'
@@ -115,10 +69,6 @@ class ShaderKaleidoscopeVisual {
     ]);
     this.gl.uniformMatrix3fv(matrixLocation, false, matrix);
     this.gl.drawArrays(this.gl.TRIANGLES, 0, 3);
-  }
-
-  private animate(): void {
-    this.animationId = requestAnimationFrame(() => {});
   }
 }
 
