@@ -1,4 +1,4 @@
-import { Canva } from '@shared/utils/canva.utils';
+import { Canva } from '@shared/classes/canva.class';
 import { angleToRadians } from '@shared/utils/math.utils';
 
 class Circle {

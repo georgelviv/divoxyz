@@ -12,8 +12,8 @@ export function resizeCanvas(
 
     const ratio = window.devicePixelRatio || 1;
 
-    const adjustedWidth = height * ratio;
-    const adjustedHeight = width * ratio;
+    const adjustedWidth = width * ratio;
+    const adjustedHeight = height * ratio;
 
     canvasEl.width = adjustedWidth;
     canvasEl.height = adjustedHeight;

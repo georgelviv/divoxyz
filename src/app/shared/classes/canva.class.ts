@@ -1,6 +1,6 @@
 import { ResizeCallback } from '@shared/models/shared.models';
-import { resizeCanvas } from './canvas.utils';
-import { debounce } from './general.utils';
+import { resizeCanvas } from '../utils/canvas.utils';
+import { debounce } from '../utils/general.utils';
 
 type DrawCallback = (height: number, width: number) => void;
 
@@ -26,7 +26,13 @@ export class Canva {
     this.ctx = canvasEl.getContext('2d')!;
 
     resizeCanvas(this.canvasEl, (values) => {
+      this.originalHeight = values.originalHeight;
+      this.originalWidth = values.originalWidth;
+      this.height = values.height;
+      this.width = values.width;
+
       this.ctx.scale(values.ratio, values.ratio);
+
       this.resizeCallback(values);
     });
   }

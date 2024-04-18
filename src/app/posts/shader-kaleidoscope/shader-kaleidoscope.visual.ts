@@ -3,7 +3,6 @@ import fragmentShaderSource from './shader-kaleidoscope.frag?raw';
 
 import { debounce } from '@shared/utils/general.utils';
 import { resizeCanvas } from '@shared/utils/canvas.utils';
-import { rand } from '@shared/utils/math.utils';
 
 class ShaderKaleidoscopeVisual {
   private canvasEl: HTMLCanvasElement;
@@ -67,85 +66,59 @@ class ShaderKaleidoscopeVisual {
   }
 
   private draw(width: number, height: number): void {
-    const positionAttributeLocation: number = this.gl.getAttribLocation(
-      this.program,
-      'a_position'
-    );
-    const resolutionUniformLocation = this.gl.getUniformLocation(
-      this.program,
-      'u_resolution'
-    );
-    const colorUniformLocation = this.gl.getUniformLocation(
-      this.program,
-      'u_color'
-    );
-
     const positionBuffer = this.gl.createBuffer();
     this.gl.bindBuffer(this.gl.ARRAY_BUFFER, positionBuffer);
 
-    const positions = new Float32Array([
-      10, 20, 80, 20, 10, 30, 10, 30, 80, 20, 80, 30
-    ]);
+    this.gl.bufferData(
+      this.gl.ARRAY_BUFFER,
+      new Float32Array([width / 2, 0, width, height, 0, height]),
+      this.gl.STATIC_DRAW
+    );
 
-    this.gl.bufferData(this.gl.ARRAY_BUFFER, positions, this.gl.STATIC_DRAW);
+    this.animate(width, height);
+  }
+
+  private drawScene(width: number, height: number): void {
+    const positionBuffer = this.gl.createBuffer();
+    const positionLocation = this.gl.getAttribLocation(
+      this.program,
+      'a_position'
+    );
+    const matrixLocation = this.gl.getUniformLocation(this.program, 'u_matrix');
+
     this.gl.viewport(0, 0, width, height);
-
-    this.gl.clearColor(0, 0, 0, 0);
     this.gl.clear(this.gl.COLOR_BUFFER_BIT);
-
     this.gl.useProgram(this.program);
-    this.gl.enableVertexAttribArray(positionAttributeLocation);
+
+    this.gl.enableVertexAttribArray(positionLocation);
     this.gl.bindBuffer(this.gl.ARRAY_BUFFER, positionBuffer);
 
     this.gl.vertexAttribPointer(
-      positionAttributeLocation,
+      positionLocation,
       2,
       this.gl.FLOAT,
       false,
       0,
       0
     );
-    this.gl.uniform2f(resolutionUniformLocation, width, height);
 
-    for (let i = 0; i < 50; i++) {
-      this.drawRect({
-        x: rand(0, width),
-        y: rand(0, height),
-        width: rand(0, width),
-        height: rand(0, height)
-      });
-
-      this.gl.uniform4f(
-        colorUniformLocation,
-        Math.random(),
-        Math.random(),
-        Math.random(),
-        1
-      );
-      this.gl.drawArrays(this.gl.TRIANGLES, 0, 6);
-    }
+    const matrix = new Float32Array([
+      2 / width,
+      0,
+      0,
+      0,
+      -2 / height,
+      0,
+      -1,
+      1,
+      1
+    ]);
+    this.gl.uniformMatrix3fv(matrixLocation, false, matrix);
+    this.gl.drawArrays(this.gl.TRIANGLES, 0, 3);
   }
 
-  private drawRect({
-    x,
-    y,
-    width,
-    height
-  }: {
-    x: number;
-    y: number;
-    width: number;
-    height: number;
-  }): void {
-    const x1 = x;
-    const x2 = x + width;
-    const y1 = y;
-    const y2 = y + height;
-    this.gl.bufferData(
-      this.gl.ARRAY_BUFFER,
-      new Float32Array([x1, y1, x2, y1, x1, y2, x1, y2, x2, y1, x2, y2]),
-      this.gl.STATIC_DRAW
-    );
+  private animate(): void {
+    this.animationId = requestAnimationFrame(() => {});
   }
 }
 

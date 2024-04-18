@@ -1,4 +1,4 @@
-import { Canva } from '@shared/utils/canva.utils';
+import { Canva } from '@shared/classes/canva.class';
 import { noise } from '@shared/utils/noise.utils';
 
 class LabyrinthLikePatternVisual {
@@ -14,6 +14,8 @@ class LabyrinthLikePatternVisual {
 
   private init(height: number, width: number): void {
     this.canva.background('#adefda');
+
+    console.log(height, width);
 
     for (let x = 0; x < width; x += this.stepSize) {
       for (let y = 0; y < height; y += this.stepSize) {
