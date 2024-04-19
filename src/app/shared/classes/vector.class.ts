@@ -1,4 +1,4 @@
-import { polarToCartesian, rand } from './math.utils';
+import { polarToCartesian, rand } from '../utils/math.utils';
 
 export class Vector {
   public x: number;

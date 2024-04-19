@@ -2,27 +2,34 @@ import { ResizeCallback } from '@shared/models/shared.models';
 import { debounce } from '../utils/general.utils';
 import { resizeCanvas } from '../utils/canvas.utils';
 
-type Shaders = [vertexShaderSource: string, fragmentShaderSource: string];
+interface WebGOptions {
+  vertexShaderSource: string;
+  fragmentShaderSource: string;
+  resizeCallback: ResizeCallback;
+}
+type DrawCallback = (iteration: number) => void;
 
 export class WebG {
   private canvasEl: HTMLCanvasElement;
   private gl: WebGLRenderingContext;
   private program: WebGLProgram;
 
+  private animationId: number;
+  private isActive: boolean = false;
+  private animationIteration: number = 0;
+
   private resizeCallback: ResizeCallback;
 
   constructor(
     canvasEl: HTMLCanvasElement,
-    [vertexShaderSource, fragmentShaderSource]: Shaders,
-    resizeCallback: ResizeCallback
+    { vertexShaderSource, fragmentShaderSource, resizeCallback }: WebGOptions
   ) {
     this.canvasEl = canvasEl;
-
-    console.log(canvasEl);
 
     this.resizeCallback = debounce(resizeCallback, 100);
 
     resizeCanvas(this.canvasEl, (values) => {
+      this.gl.viewport(0, 0, values.width, values.height);
       this.resizeCallback(values);
     });
 
@@ -35,6 +42,19 @@ export class WebG {
 
   public getGl(): WebGLRenderingContext {
     return this.gl;
+  }
+
+  public startAnimation(draw: DrawCallback): void {
+    this.stopAnimation();
+
+    this.isActive = true;
+    this.update(draw);
+  }
+
+  public stopAnimation(): void {
+    this.isActive = false;
+
+    cancelAnimationFrame(this.animationId);
   }
 
   private init(vertexShaderSource: string, fragmentShaderSource: string): void {
@@ -79,5 +99,16 @@ export class WebG {
 
     console.log(this.gl.getProgramInfoLog(program));
     this.gl.deleteProgram(program);
+  }
+
+  private update(draw: DrawCallback): void {
+    this.animationId = requestAnimationFrame(() => {
+      this.animationIteration += 1;
+      draw(this.animationIteration);
+
+      if (this.isActive) {
+        this.update(draw);
+      }
+    }) as unknown as number;
   }
 }

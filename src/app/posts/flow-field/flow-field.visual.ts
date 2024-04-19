@@ -1,7 +1,7 @@
 import { Canva } from '@shared/classes/canva.class';
 import { polarToCartesian, rand } from '@shared/utils/math.utils';
 import { noise } from '@shared/utils/noise.utils';
-import { Vector, getVectorFromAngle } from '@shared/utils/vector.utils';
+import { Vector, getVectorFromAngle } from '@shared/classes/vector.class';
 
 class Particle {
   private position: Vector;
