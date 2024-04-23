@@ -9,6 +9,15 @@
     "published": false
   },
   {
+    "title": "TOTP  Authentication",
+    "id": "totp-authentication",
+    "description": "TOTP  Authentication used in 2-FA",
+    "date": "2024-04-23T00:00:00.000Z",
+    "tags": ["security"],
+    "demoBackground": "#ffffff",
+    "published": false
+  },
+  {
     "title": "Flow field",
     "id": "flow-field",
     "description": "Flow field animation with particles with perlin noise.",

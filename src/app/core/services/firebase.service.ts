@@ -3,7 +3,6 @@ import { getAnalytics } from 'firebase/analytics';
 
 class FirebaseService {
   public init(): void {
-    console.log();
     const firebaseConfig = {
       apiKey: import.meta.env.VITE_FB_API_KEY,
       authDomain: import.meta.env.VITE_FB_AUTH_DOMAIN,
