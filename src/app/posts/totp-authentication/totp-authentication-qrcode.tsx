@@ -44,7 +44,7 @@ const TOTPAuthenticationQRCode = () => {
 
   return (
     <div>
-      <div className="flex justify-between gap-2">
+      <div className="flex justify-between gap-2 flex-col lg:flex-row">
         <Input
           value={appName}
           extraClasses="flex-grow"

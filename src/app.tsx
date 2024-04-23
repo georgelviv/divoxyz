@@ -12,7 +12,7 @@ const App = () => {
 
   return (
     // h-1 for min-h
-    <main className="bg-background min-h-full lg:h-full lg:overflow-auto h-1">
+    <main className="bg-background min-h-full h-full overflow-auto">
       <div className="p-5 min-h-[calc(100%-64px)]">
         <Header />
         <Outlet />
