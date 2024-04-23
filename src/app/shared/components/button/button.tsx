@@ -25,7 +25,7 @@ const Button = ({
   ...rest
 }: ButtonProps | LinkProps) => {
   let cssClasses = classNames(
-    'rounded-md border border-primary text-sm bg-background',
+    'rounded-md border border-primary bg-background',
     'text-primary font-medium px-4 py-2 hover:cursor-pointer',
     'flex justify-center items-center gap-2 hover:bg-background-hover transition'
   );

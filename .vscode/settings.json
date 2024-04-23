@@ -24,6 +24,7 @@
     "NMEA",
     "Perlin",
     "Pipeable",
+    "qrcode",
     "rehype",
     "sirv",
     "splited",
