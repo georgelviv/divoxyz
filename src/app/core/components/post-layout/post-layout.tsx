@@ -83,6 +83,7 @@ const PostLayout = ({ demo, article }: Props) => {
           <PostLayoutDemo
             isFullScreen={isFullScreen}
             demo={demo}
+            post={post}
             handleFullScreen={handleFullScreen}
           />
         </div>

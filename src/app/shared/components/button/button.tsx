@@ -2,15 +2,18 @@ import classNames from 'classnames';
 import { motion } from 'framer-motion';
 import { ComponentProps } from 'react';
 import { ButtonIcon, ButtonTheme } from './button.models';
-import { Expand, Minimize, Usb, X } from 'lucide-react';
+import { Expand, Github, Minimize, Usb, X } from 'lucide-react';
 
-interface Props extends ComponentProps<'button'> {
-  children?: JSX.Element | string | string[];
+interface BaseProps {
   scaleAnimation?: boolean;
   icon?: ButtonIcon;
   theme?: ButtonTheme;
   extraClasses?: string;
+  link?: string;
 }
+
+interface ButtonProps extends ComponentProps<'button'>, BaseProps {}
+interface LinkProps extends ComponentProps<'a'>, BaseProps {}
 
 const Button = ({
   children,
@@ -18,8 +21,9 @@ const Button = ({
   scaleAnimation,
   icon,
   extraClasses,
+  link,
   ...rest
-}: Props) => {
+}: ButtonProps | LinkProps) => {
   let cssClasses = classNames(
     'rounded-md border border-primary text-sm bg-background',
     'text-primary font-medium px-4 py-2 hover:cursor-pointer',
@@ -43,16 +47,27 @@ const Button = ({
       iconContent = <X />;
     } else if (icon === 'usb') {
       iconContent = <Usb />;
+    } else if (icon === 'github') {
+      iconContent = <Github />;
     }
   }
 
   const childrenContent = children ?? '';
-
-  const buttonEl = (
+  const parentComponentEl = link ? (
+    <a
+      href={link}
+      target="_blank"
+      className={classNames(cssClasses, extraClasses)}
+      {...(rest as LinkProps)}
+    >
+      {iconContent}
+      {childrenContent}
+    </a>
+  ) : (
     <button
       type="button"
       className={classNames(cssClasses, extraClasses)}
-      {...rest}
+      {...(rest as ButtonProps)}
     >
       {iconContent}
       {childrenContent}
@@ -65,11 +80,11 @@ const Button = ({
         animate={{ scale: [1, 1.05, 1] }}
         transition={{ repeat: Infinity, repeatDelay: 1 }}
       >
-        {buttonEl}
+        {parentComponentEl}
       </motion.div>
     );
   } else {
-    return buttonEl;
+    return parentComponentEl;
   }
 };
 

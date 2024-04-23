@@ -1,19 +1,25 @@
+import { Post } from '@core/models/core.models';
 import { Button } from '@shared/components/button';
 
 interface PostLayoutDemoProps {
   demo: JSX.Element;
   isFullScreen: boolean;
   handleFullScreen: () => void;
+  post: Post;
 }
 
 const PostLayoutDemo = ({
   demo,
   isFullScreen,
-  handleFullScreen
+  handleFullScreen,
+  post
 }: PostLayoutDemoProps) => {
+  const linkToGithub: string = `${import.meta.env.VITE_GITHUB_LINK}/src/app/posts/${post.id}`;
+
   return (
     <div className="h-full">
       <div className="flex justify-end">
+        <Button theme="text" icon={'github'} link={linkToGithub} />
         <Button
           theme="text"
           icon={isFullScreen ? 'minimize' : 'expand'}

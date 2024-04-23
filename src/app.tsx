@@ -11,7 +11,8 @@ const App = () => {
   }, []);
 
   return (
-    <main className="bg-background min-h-full lg:h-full lg:overflow-auto">
+    // h-1 for min-h
+    <main className="bg-background min-h-full lg:h-full lg:overflow-auto h-1">
       <div className="p-5 min-h-[calc(100%-64px)]">
         <Header />
         <Outlet />
