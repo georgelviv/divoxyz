@@ -18,7 +18,7 @@ const PostLayoutDemo = ({
 
   return (
     <div className="h-full">
-      <div className="flex justify-end">
+      <div className="flex justify-end mb-2">
         <Button theme="text" icon={'github'} link={linkToGithub} />
         <Button
           theme="text"
@@ -26,7 +26,7 @@ const PostLayoutDemo = ({
           onClick={handleFullScreen}
         />
       </div>
-      <div className="h-[calc(100%-40px)]">{demo}</div>
+      <div className="h-[calc(100%-48px)]">{demo}</div>
     </div>
   );
 };

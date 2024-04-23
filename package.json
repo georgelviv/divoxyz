@@ -6,7 +6,7 @@
   },
   "main": "server/index.js",
   "scripts": {
-    "dev": "bun run server",
+    "dev": "node server",
     "build": "bun run build:client && bun run build:server",
     "build:client": "vite build --ssrManifest --config configs/vite.config.ts --outDir dist/client",
     "build:server": "vite build --ssr src/entry-server.tsx --config configs/vite.config.ts --outDir dist/server",

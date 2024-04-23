@@ -6,18 +6,43 @@ interface Props extends ComponentProps<'input'> {
   placeholder?: string;
   id: string;
   extraClasses?: string;
+  hasError?: boolean;
 }
 
-const Input = ({ label, id, placeholder, extraClasses, ...rest }: Props) => {
+const Input = ({
+  label,
+  id,
+  placeholder,
+  extraClasses,
+  hasError,
+  children,
+  ...rest
+}: Props) => {
   const inputClasses = classNames(
-    'rounded-md border border-primary text-primary px-4 py-2',
-    'focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-secondary'
+    'rounded-md border px-4 py-2',
+    'focus-visible:outline-none focus-visible:ring-1',
+    { 'border-error text-error focus-visible:ring-error': hasError },
+    { 'border-primary text-primary focus-visible:ring-secondary': !hasError }
   );
+
+  const labelClasses = classNames(
+    'text-sm',
+    { 'text-error': hasError },
+    { 'text-secondary': !hasError }
+  );
+
+  const hintClasses = classNames(
+    'text-xs mt-1',
+    { 'text-error': hasError },
+    { 'text-secondary': !hasError }
+  );
+
+  const childrenContent = children ?? '';
 
   return (
     <div className={classNames('flex flex-col', extraClasses)}>
       {label && (
-        <label htmlFor={id} className="text-sm text-secondary">
+        <label htmlFor={id} className={labelClasses}>
           {label}
         </label>
       )}
@@ -28,6 +53,7 @@ const Input = ({ label, id, placeholder, extraClasses, ...rest }: Props) => {
         placeholder={label || placeholder}
         {...rest}
       />
+      {childrenContent && <div className={hintClasses}>{childrenContent}</div>}
     </div>
   );
 };

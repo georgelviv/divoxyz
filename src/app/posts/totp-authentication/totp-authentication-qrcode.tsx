@@ -1,12 +1,14 @@
 import {
   SyntheticEvent,
   useCallback,
+  useContext,
   useEffect,
   useRef,
   useState
 } from 'react';
 import qrCode from 'qrcode';
 import { Input } from '@shared/components/input';
+import { TOTPAuthenticationContext } from './totp-authentication.context';
 
 const getOtPath = (appName: string, secret: string): string => {
   return `otpauth://totp/${appName}?secret=${secret}`;
@@ -14,7 +16,7 @@ const getOtPath = (appName: string, secret: string): string => {
 
 const TOTPAuthenticationQRCode = () => {
   const [appName, setAppName] = useState<string>('Dyvoxyz');
-  const [secret, setSecret] = useState<string>('supersecret');
+  const { secret, setSecret } = useContext(TOTPAuthenticationContext);
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -23,10 +25,13 @@ const TOTPAuthenticationQRCode = () => {
     setAppName(target.value);
   }, []);
 
-  const handleSecret = useCallback((e: SyntheticEvent<HTMLInputElement>) => {
-    const target: HTMLInputElement = e.target as HTMLInputElement;
-    setSecret(target.value);
-  }, []);
+  const handleSecret = useCallback(
+    (e: SyntheticEvent<HTMLInputElement>) => {
+      const target: HTMLInputElement = e.target as HTMLInputElement;
+      setSecret(target.value);
+    },
+    [setSecret]
+  );
 
   useEffect(() => {
     const qrCodeText: string = getOtPath(appName, secret);
@@ -42,19 +47,21 @@ const TOTPAuthenticationQRCode = () => {
       <div className="flex justify-between gap-2">
         <Input
           value={appName}
+          extraClasses="flex-grow"
           label="App Name"
           onChange={handleAppName}
           id="appName"
         />
         <Input
           label="Secret"
+          extraClasses="flex-grow"
           value={secret}
           onChange={handleSecret}
           id="secret"
         />
       </div>
       <div className="flex justify-center">
-        <canvas ref={canvasRef}></canvas>
+        <canvas ref={canvasRef} />
       </div>
     </div>
   );
