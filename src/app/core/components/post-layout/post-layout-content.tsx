@@ -24,7 +24,7 @@ const PostLayoutContent = ({ article }: PostLayoutContentProps) => {
       components={{ a: LinkRenderer }}
       className="post-layout"
       remarkPlugins={[remarkMath, remarkAlert]}
-      rehypePlugins={[rehypeKatex]}
+      rehypePlugins={[[rehypeKatex, { strict: false }]]}
     >
       {article}
     </Markdown>
