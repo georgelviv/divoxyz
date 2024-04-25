@@ -1,8 +1,14 @@
 import { PostLayout } from '@core/components/post-layout';
 import article from './article.md?raw';
+import { UserMediaSafe } from '@shared/components/user-media-safe';
+import { useCallback } from 'react';
 
 const Demo = () => {
-  return <div>Demo</div>;
+  const checked = useCallback(() => {
+    console.log('works!');
+  }, []);
+
+  return <UserMediaSafe checked={checked} />;
 };
 
 const FaceDetectionWithOpenCv = () => {

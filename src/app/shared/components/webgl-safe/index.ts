@@ -1,1 +1,1 @@
-export { default as WebglSafe } from './webgl-safe.component';
+export { default as WebglSafe } from './webgl-safe';
