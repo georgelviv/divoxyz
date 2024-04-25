@@ -1,11 +1,12 @@
 import { ComponentProps, useEffect, useRef, useState } from 'react';
 import { Warning } from '../warning';
+import classNames from 'classnames';
 
 interface Props extends ComponentProps<'canvas'> {
   checked: (canvasEl: HTMLCanvasElement) => void;
 }
 
-const WebglSafe = ({ checked, ...rest }: Props) => {
+const WebglSafe = ({ checked, className, ...rest }: Props) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [webglNotSupported, setWebglNotSupported] = useState<boolean>(false);
 
@@ -18,15 +19,13 @@ const WebglSafe = ({ checked, ...rest }: Props) => {
     }
   }, [checked]);
 
+  const canvasClasses = classNames(className, { hidden: webglNotSupported });
+
   return (
     <>
-      <canvas ref={canvasRef} {...rest} />
+      <canvas ref={canvasRef} className={canvasClasses} {...rest} />
       {webglNotSupported && (
-        <div className="w-full flex relative">
-          <div className="absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%]">
-            <Warning>WebGL is not supported</Warning>
-          </div>
-        </div>
+        <Warning center={true}>WebGL is not supported</Warning>
       )}
     </>
   );
