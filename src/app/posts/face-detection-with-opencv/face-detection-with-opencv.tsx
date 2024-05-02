@@ -2,26 +2,18 @@ import { PostLayout } from '@core/components/post-layout';
 import article from './article.md?raw';
 import { UserMediaSafe } from '@shared/components/user-media-safe';
 import { useCallback, useState } from 'react';
-import { Warning } from '@shared/components/warning';
+import CanvasVideo from './canvas-video';
 
 const Demo = () => {
-  const [notAllowed, setNotAllowed] = useState<boolean>(false);
-  const checked = useCallback(async () => {
-    try {
-      const localMediaStream = await navigator.mediaDevices.getUserMedia({
-        video: true
-      });
-      console.log(localMediaStream);
-    } catch (e) {
-      console.error('not allowed', e);
-      setNotAllowed(true);
-    }
+  const [mediaStream, setMediaStream] = useState<MediaStream>(null);
+  const onMediaStream = useCallback((stream: MediaStream) => {
+    setMediaStream(stream);
   }, []);
 
   return (
-    <div className="h-24">
-      {notAllowed && <Warning center={true}>Camera Permissions denied</Warning>}
-      <UserMediaSafe checked={checked} />
+    <div>
+      {mediaStream && <CanvasVideo mediaStream={mediaStream} />}
+      <UserMediaSafe onMediaStream={onMediaStream} />
     </div>
   );
 };
