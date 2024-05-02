@@ -7,13 +7,11 @@ class FaceDetectionWithOpenCVVisual {
 
   private videoEl: HTMLVideoElement;
   private frameId: number;
-  private ctx: CanvasRenderingContext2D;
 
   private width: number;
   private height: number;
 
   private capture: cv.VideoCapture;
-  private mat: cv.Mat;
 
   constructor(canvasEl: HTMLCanvasElement, mediaStream: MediaStream) {
     this.canvasEl = canvasEl;
@@ -34,7 +32,6 @@ class FaceDetectionWithOpenCVVisual {
   }
 
   private async init(): Promise<void> {
-    this.ctx = this.canvasEl.getContext('2d', { willReadFrequently: true });
     this.setDimensions();
     this.videoEl = document.createElement('video');
     this.videoEl.height = this.height;
@@ -42,7 +39,6 @@ class FaceDetectionWithOpenCVVisual {
     await playVideoMediaStream(this.videoEl, this.mediaStream);
 
     this.capture = new cv.VideoCapture(this.videoEl);
-    this.mat = new cv.Mat(this.height, this.width, cv.CV_8UC4);
     this.renderVideo();
   }
 
@@ -66,9 +62,15 @@ class FaceDetectionWithOpenCVVisual {
 
   private async updateFrame(): Promise<void> {
     try {
-      this.capture.read(this.mat);
-      cv.imshow(this.canvasEl, this.mat);
+      const sourceMat = new cv.Mat(this.height, this.width, cv.CV_8UC4);
+      const dstMat = new cv.Mat(this.height, this.width, cv.CV_8UC4);
+      this.capture.read(sourceMat);
+      cv.cvtColor(sourceMat, dstMat, cv.COLOR_RGBA2GRAY);
+      cv.imshow(this.canvasEl, dstMat);
+      sourceMat.delete();
+      dstMat.delete();
     } catch (e) {
+      this.stop();
       console.error('error', e);
     }
   }
