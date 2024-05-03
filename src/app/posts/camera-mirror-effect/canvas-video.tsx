@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import FaceDetectionWithOpenCVVisual from './face-detection-with-opencv.visual';
+import CameraMirrorEffectVisual from './camera-mirror-effect.visual';
 
 interface Props {
   mediaStream: MediaStream;
@@ -9,10 +9,7 @@ const CanvasVideo = ({ mediaStream }: Props) => {
   const canvasRef = useRef(null);
 
   useEffect(() => {
-    const visual = new FaceDetectionWithOpenCVVisual(
-      canvasRef.current,
-      mediaStream
-    );
+    const visual = new CameraMirrorEffectVisual(canvasRef.current, mediaStream);
     return () => {
       visual.stop();
     };

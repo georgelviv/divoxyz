@@ -18,10 +18,10 @@ const Demo = () => {
   );
 };
 
-const FaceDetectionWithOpenCv = () => {
+const CameraMirrorEffect = () => {
   return <PostLayout article={article} demo={<Demo />} />;
 };
 
-FaceDetectionWithOpenCv.displayName = 'FaceDetectionWithOpenCv';
+CameraMirrorEffect.displayName = 'CameraMirrorEffect';
 
-export default FaceDetectionWithOpenCv;
+export default CameraMirrorEffect;

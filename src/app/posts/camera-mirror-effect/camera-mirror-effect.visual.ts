@@ -1,7 +1,7 @@
 import cv from '@techstark/opencv-js';
 import { playVideoMediaStream } from '@shared/utils/media.utils';
 
-class FaceDetectionWithOpenCVVisual {
+class CameraMirrorEffectVisual {
   private canvasEl: HTMLCanvasElement;
   private mediaStream: MediaStream;
 
@@ -110,4 +110,4 @@ class FaceDetectionWithOpenCVVisual {
   }
 }
 
-export default FaceDetectionWithOpenCVVisual;
+export default CameraMirrorEffectVisual;

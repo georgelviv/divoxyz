@@ -9,13 +9,13 @@
     "published": false
   },
   {
-    "title": "Face detection using OpenCV",
-    "id": "face-detection-with-opencv",
-    "description": "Face detection from webcam using OpenCV on frontend.",
-    "date": "2024-04-24T00:00:00.000Z",
-    "tags": ["compute-vision", "webcam", "opencv", "ai"],
+    "title": "Camera Mirror Effect",
+    "id": "camera-mirror-effect",
+    "description": "Camera mirror effect with OpenCV.",
+    "date": "2024-05-03T00:00:00.000Z",
+    "tags": ["compute-vision", "webcam", "opencv"],
     "demoBackground": "#ffffff",
-    "published": false
+    "published": true
   },
   {
     "title": "TOTP  Authentication",
