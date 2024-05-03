@@ -4,6 +4,9 @@ import { remarkAlert } from 'remark-github-blockquote-alert';
 import remarkMath from 'remark-math';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { base16AteliersulphurpoolLight } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import { useEffect, useState } from 'react';
+
+import notChromeWarning from './not-chrome-warning.md?raw';
 
 interface PostLayoutContentProps {
   article: string;
@@ -39,6 +42,18 @@ function CodeRenderer(props: any) {
 }
 
 const PostLayoutContent = ({ article }: PostLayoutContentProps) => {
+  const [notChromeBrowser, setNotChromeBrowser] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (!('chrome' in window)) {
+      setNotChromeBrowser(true);
+    }
+  }, [notChromeBrowser]);
+
+  const updatedArticle = notChromeBrowser
+    ? notChromeWarning + article
+    : article;
+
   return (
     <Markdown
       components={{ a: LinkRenderer, code: CodeRenderer }}
@@ -46,7 +61,7 @@ const PostLayoutContent = ({ article }: PostLayoutContentProps) => {
       remarkPlugins={[remarkMath, remarkAlert]}
       rehypePlugins={[[rehypeKatex, { strict: false }]]}
     >
-      {article}
+      {updatedArticle}
     </Markdown>
   );
 };
