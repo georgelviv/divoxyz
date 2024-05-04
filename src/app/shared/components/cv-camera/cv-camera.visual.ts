@@ -1,7 +1,10 @@
 import cv from '@techstark/opencv-js';
-import { playVideoMediaStream } from '@shared/utils/media.utils';
+import { playVideoMediaStream } from '../../utils/media.utils';
+import { CVCameraFrameHandler } from './cv-camera.models';
 
-class CameraMirrorEffectVisual {
+type OnPermissionDenied = (err: any) => void;
+
+class CVCameraVisual {
   private canvasEl: HTMLCanvasElement;
   private mediaStream: MediaStream;
 
@@ -15,9 +18,17 @@ class CameraMirrorEffectVisual {
   private frameIndex: number = 0;
   private videoTrack: MediaStreamTrack;
 
-  constructor(canvasEl: HTMLCanvasElement, mediaStream: MediaStream) {
+  private frameHandler: CVCameraFrameHandler;
+  private onPermissionDenied: OnPermissionDenied;
+
+  constructor(
+    canvasEl: HTMLCanvasElement,
+    frameHandler: CVCameraFrameHandler,
+    onPermissionDenied: OnPermissionDenied
+  ) {
     this.canvasEl = canvasEl;
-    this.mediaStream = mediaStream;
+    this.frameHandler = frameHandler;
+    this.onPermissionDenied = onPermissionDenied;
 
     this.init();
   }
@@ -30,12 +41,25 @@ class CameraMirrorEffectVisual {
       this.videoEl.pause();
       this.videoEl.remove();
     }
-    this.mediaStream.getTracks().forEach((track) => {
-      track.stop();
-    });
+    if (this.mediaStream) {
+      this.mediaStream.getTracks().forEach((track) => {
+        track.stop();
+      });
+    }
   }
 
   private async init(): Promise<void> {
+    try {
+      this.mediaStream = await navigator.mediaDevices.getUserMedia({
+        video: true
+      });
+    } catch (e) {
+      if (this.onPermissionDenied) {
+        this.onPermissionDenied(e);
+        return;
+      }
+    }
+
     this.videoTrack = this.mediaStream.getVideoTracks()[0];
     this.setDimensions();
 
@@ -81,28 +105,19 @@ class CameraMirrorEffectVisual {
   private async updateFrame(): Promise<void> {
     try {
       const sourceMat = new cv.Mat(this.height, this.width, cv.CV_8UC4);
-      const grayMat = new cv.Mat(this.height, this.width, cv.CV_8UC4);
-      const borderMat = new cv.Mat(this.height, this.width, cv.CV_8UC4);
-
-      const s = new cv.Scalar(255, 0, 0, 255);
-
+      const targetMat = new cv.Mat(this.height, this.width, cv.CV_8UC4);
       this.capture.read(sourceMat);
-      cv.cvtColor(sourceMat, grayMat, cv.COLOR_RGBA2GRAY);
-      cv.copyMakeBorder(
-        grayMat,
-        borderMat,
-        this.height / 2,
-        this.height / 2,
-        this.width / 2,
-        this.width / 2,
-        cv.BORDER_DEFAULT,
-        s
-      );
-      cv.imshow(this.canvasEl, borderMat);
+
+      if (this.frameHandler) {
+        this.frameHandler(sourceMat, targetMat);
+      } else {
+        sourceMat.copyTo(targetMat);
+      }
+
+      cv.imshow(this.canvasEl, targetMat);
 
       sourceMat.delete();
-      grayMat.delete();
-      borderMat.delete();
+      targetMat.delete();
     } catch (e) {
       this.stop();
       console.error('error', e);
@@ -110,4 +125,4 @@ class CameraMirrorEffectVisual {
   }
 }
 
-export default CameraMirrorEffectVisual;
+export default CVCameraVisual;

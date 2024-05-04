@@ -1,21 +1,30 @@
 import { PostLayout } from '@core/components/post-layout';
 import article from './article.md?raw';
-import { UserMediaSafe } from '@shared/components/user-media-safe';
-import { useCallback, useState } from 'react';
-import CanvasVideo from './canvas-video';
+import { CVCamera } from '@shared/components/cv-camera';
+import { useCallback } from 'react';
+import cv from '@techstark/opencv-js';
 
 const Demo = () => {
-  const [mediaStream, setMediaStream] = useState<MediaStream>(null);
-  const onMediaStream = useCallback((stream: MediaStream) => {
-    setMediaStream(stream);
-  }, []);
+  const frameHandler = useCallback((source: cv.Mat, target: cv.Mat) => {
+    const grayMat = new cv.Mat(source.rows, source.cols, cv.CV_8UC4);
+    const s = new cv.Scalar(125, 0, 0, 255);
 
-  return (
-    <div>
-      {mediaStream && <CanvasVideo mediaStream={mediaStream} />}
-      <UserMediaSafe onMediaStream={onMediaStream} />
-    </div>
-  );
+    const [halfHeight, halfWidth] = [source.rows / 2, source.cols / 2];
+
+    cv.cvtColor(source, grayMat, cv.COLOR_RGBA2GRAY);
+    cv.copyMakeBorder(
+      grayMat,
+      target,
+      halfHeight,
+      halfHeight,
+      halfWidth,
+      halfWidth,
+      cv.BORDER_DEFAULT,
+      s
+    );
+    grayMat.delete();
+  }, []);
+  return <CVCamera frameHandler={frameHandler} />;
 };
 
 const CameraMirrorEffect = () => {
