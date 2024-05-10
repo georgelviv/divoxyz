@@ -45,6 +45,8 @@ class CVCameraVisual {
       this.mediaStream.getTracks().forEach((track) => {
         track.stop();
       });
+
+      console.log('stop');
     }
   }
 

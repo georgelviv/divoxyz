@@ -7,7 +7,8 @@
     "tags": ["visual", "animation", "webgl", "shader"],
     "demoBackground": "#ffffff",
     "published": false,
-    "showFPS": true
+    "showFPS": true,
+    "showDownloadCanvasImage": true
   },
   {
     "title": "GPS Serial Module",
@@ -17,7 +18,8 @@
     "tags": ["embedded"],
     "demoBackground": "#aad3df",
     "published": false,
-    "showFPS": false
+    "showFPS": false,
+    "showDownloadCanvasImage": false
   },
   {
     "title": "Camera CV",
@@ -27,7 +29,8 @@
     "tags": ["camera", "opencv"],
     "demoBackground": "#ffffff",
     "published": false,
-    "showFPS": true
+    "showFPS": true,
+    "showDownloadCanvasImage": true
   },
   {
     "title": "Camera Mirror Effect",
@@ -37,7 +40,8 @@
     "tags": ["compute-vision", "webcam", "opencv"],
     "demoBackground": "#ffffff",
     "published": true,
-    "showFPS": true
+    "showFPS": true,
+    "showDownloadCanvasImage": true
   },
   {
     "title": "TOTP  Authentication",
@@ -47,7 +51,8 @@
     "tags": ["security"],
     "demoBackground": "#ffffff",
     "published": true,
-    "showFPS": false
+    "showFPS": false,
+    "showDownloadCanvasImage": false
   },
   {
     "title": "Flow field",
@@ -57,7 +62,8 @@
     "tags": ["visual", "animation"],
     "demoBackground": "#ffffff",
     "published": true,
-    "showFPS": true
+    "showFPS": true,
+    "showDownloadCanvasImage": true
   },
   {
     "title": "Mondrian Composition",
@@ -67,7 +73,8 @@
     "tags": ["visual", "pattern"],
     "demoBackground": "#ffffff",
     "published": true,
-    "showFPS": false
+    "showFPS": false,
+    "showDownloadCanvasImage": true
   },
   {
     "title": "Labyrinth Like Pattern",
@@ -77,7 +84,8 @@
     "tags": ["visual", "pattern"],
     "demoBackground": "#adefda",
     "published": true,
-    "showFPS": false
+    "showFPS": false,
+    "showDownloadCanvasImage": true
   },
   {
     "title": "Rainbow Circles",
@@ -87,7 +95,8 @@
     "tags": ["visual", "animation"],
     "demoBackground": "#dcdcdc",
     "published": true,
-    "showFPS": true
+    "showFPS": true,
+    "showDownloadCanvasImage": true
   },
   {
     "title": "Read serial in browser",
@@ -97,7 +106,8 @@
     "tags": ["embedded"],
     "demoBackground": "#ffffff",
     "published": true,
-    "showFPS": false
+    "showFPS": false,
+    "showDownloadCanvasImage": false
   },
   {
     "title": "Wave Pattern",
@@ -107,6 +117,7 @@
     "tags": ["visual", "animation"],
     "demoBackground": "#E1EAF7",
     "published": true,
-    "showFPS": true
+    "showFPS": true,
+    "showDownloadCanvasImage": true
   }
 ]

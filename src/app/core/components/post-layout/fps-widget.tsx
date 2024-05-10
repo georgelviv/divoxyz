@@ -28,7 +28,7 @@ const FPSWidget = () => {
   }, []);
 
   return (
-    <div className="px-1 py-2 text-primary flex gap-2">
+    <div className="px-2 py-2 text-primary flex gap-2">
       <Film /> <span className="w-4">{fps}</span> FPS
     </div>
   );

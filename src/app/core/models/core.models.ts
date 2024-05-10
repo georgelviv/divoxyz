@@ -7,4 +7,5 @@ export interface Post {
   tags: string[];
   published: boolean;
   showFPS: boolean;
+  showDownloadCanvasImage: boolean;
 }

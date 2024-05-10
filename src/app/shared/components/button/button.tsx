@@ -2,7 +2,14 @@ import classNames from 'classnames';
 import { motion } from 'framer-motion';
 import { ComponentProps } from 'react';
 import { ButtonIcon, ButtonTheme } from './button.models';
-import { Expand, Github, Minimize, Usb, X } from 'lucide-react';
+import {
+  ArrowDownToLine,
+  Expand,
+  Github,
+  Minimize,
+  Usb,
+  X
+} from 'lucide-react';
 
 interface BaseProps {
   scaleAnimation?: boolean;
@@ -26,7 +33,10 @@ const Button = ({
 }: ButtonProps | LinkProps) => {
   let cssClasses = classNames(
     'rounded-md border border-primary bg-background',
-    'text-primary font-medium px-4 py-2 hover:cursor-pointer',
+    'text-primary font-medium hover:cursor-pointer',
+    {
+      'px-4 py-2': !theme || theme === 'normal'
+    },
     'flex justify-center items-center gap-2 hover:bg-background-hover transition'
   );
 
@@ -51,6 +61,8 @@ const Button = ({
       iconContent = <Usb />;
     } else if (icon === 'github') {
       iconContent = <Github />;
+    } else if (icon === 'download') {
+      iconContent = <ArrowDownToLine />;
     }
   }
 

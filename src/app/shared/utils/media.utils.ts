@@ -21,3 +21,13 @@ export function playVideoMediaStream(
       });
   });
 }
+
+export function downloadCanvasAsImage(
+  fileName: string,
+  canvasEl: HTMLCanvasElement
+): void {
+  const link = document.createElement('a');
+  link.download = fileName;
+  link.href = canvasEl.toDataURL();
+  link.click();
+}

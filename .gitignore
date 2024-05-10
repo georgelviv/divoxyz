@@ -10,3 +10,5 @@ ui-debug.log
 certs/
 .env
 private.md
+venv/
+test-cv/
