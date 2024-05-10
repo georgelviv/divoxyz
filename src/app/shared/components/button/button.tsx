@@ -33,6 +33,8 @@ const Button = ({
   if (theme) {
     if (theme === 'text') {
       cssClasses = classNames(cssClasses, 'border-0 bg-transparent px-1');
+    } else if (theme === 'text-p-0') {
+      cssClasses = classNames(cssClasses, 'border-0 bg-transparent px-0 py-0');
     }
   }
 

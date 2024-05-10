@@ -6,34 +6,8 @@
     "date": "2024-04-15T00:00:00.000Z",
     "tags": ["visual", "animation", "webgl", "shader"],
     "demoBackground": "#ffffff",
-    "published": false
-  },
-  {
-    "title": "Camera Mirror Effect",
-    "id": "camera-mirror-effect",
-    "description": "Camera mirror effect with OpenCV.",
-    "date": "2024-05-03T00:00:00.000Z",
-    "tags": ["compute-vision", "webcam", "opencv"],
-    "demoBackground": "#ffffff",
-    "published": true
-  },
-  {
-    "title": "TOTP  Authentication",
-    "id": "totp-authentication",
-    "description": "Example of TOTP authentication used in 2-FA.",
-    "date": "2024-04-23T00:00:00.000Z",
-    "tags": ["security"],
-    "demoBackground": "#ffffff",
-    "published": true
-  },
-  {
-    "title": "Flow field",
-    "id": "flow-field",
-    "description": "Flow field animation with particles with perlin noise.",
-    "date": "2024-04-10T00:00:00.000Z",
-    "tags": ["visual", "animation"],
-    "demoBackground": "#ffffff",
-    "published": true
+    "published": false,
+    "showFPS": true
   },
   {
     "title": "GPS Serial Module",
@@ -42,7 +16,48 @@
     "date": "2024-04-03T00:00:00.000Z",
     "tags": ["embedded"],
     "demoBackground": "#aad3df",
-    "published": false
+    "published": false,
+    "showFPS": false
+  },
+  {
+    "title": "Camera CV",
+    "id": "camera-cv",
+    "description": "Camera CV.",
+    "date": "2024-05-09T00:00:00.000Z",
+    "tags": ["camera", "opencv"],
+    "demoBackground": "#ffffff",
+    "published": false,
+    "showFPS": true
+  },
+  {
+    "title": "Camera Mirror Effect",
+    "id": "camera-mirror-effect",
+    "description": "Camera mirror effect with OpenCV.",
+    "date": "2024-05-03T00:00:00.000Z",
+    "tags": ["compute-vision", "webcam", "opencv"],
+    "demoBackground": "#ffffff",
+    "published": true,
+    "showFPS": true
+  },
+  {
+    "title": "TOTP  Authentication",
+    "id": "totp-authentication",
+    "description": "Example of TOTP authentication used in 2-FA.",
+    "date": "2024-04-23T00:00:00.000Z",
+    "tags": ["security"],
+    "demoBackground": "#ffffff",
+    "published": true,
+    "showFPS": false
+  },
+  {
+    "title": "Flow field",
+    "id": "flow-field",
+    "description": "Flow field animation with particles with perlin noise.",
+    "date": "2024-04-10T00:00:00.000Z",
+    "tags": ["visual", "animation"],
+    "demoBackground": "#ffffff",
+    "published": true,
+    "showFPS": true
   },
   {
     "title": "Mondrian Composition",
@@ -51,7 +66,8 @@
     "date": "2024-04-01T00:00:00.000Z",
     "tags": ["visual", "pattern"],
     "demoBackground": "#ffffff",
-    "published": true
+    "published": true,
+    "showFPS": false
   },
   {
     "title": "Labyrinth Like Pattern",
@@ -60,7 +76,8 @@
     "date": "2024-03-29T00:00:00.000Z",
     "tags": ["visual", "pattern"],
     "demoBackground": "#adefda",
-    "published": true
+    "published": true,
+    "showFPS": false
   },
   {
     "title": "Rainbow Circles",
@@ -69,7 +86,8 @@
     "date": "2024-03-28T00:00:00.000Z",
     "tags": ["visual", "animation"],
     "demoBackground": "#dcdcdc",
-    "published": true
+    "published": true,
+    "showFPS": true
   },
   {
     "title": "Read serial in browser",
@@ -78,7 +96,8 @@
     "date": "2024-03-27T00:00:00.000Z",
     "tags": ["embedded"],
     "demoBackground": "#ffffff",
-    "published": true
+    "published": true,
+    "showFPS": false
   },
   {
     "title": "Wave Pattern",
@@ -87,6 +106,7 @@
     "date": "2024-03-26T00:00:00.000Z",
     "tags": ["visual", "animation"],
     "demoBackground": "#E1EAF7",
-    "published": true
+    "published": true,
+    "showFPS": true
   }
 ]

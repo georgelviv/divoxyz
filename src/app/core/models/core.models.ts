@@ -6,4 +6,5 @@ export interface Post {
   demoBackground: string;
   tags: string[];
   published: boolean;
+  showFPS: boolean;
 }

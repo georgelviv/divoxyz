@@ -36,14 +36,15 @@ const Card = ({ post }: CardProps) => {
       </div>
       <div className="text-primary font-medium text-xl">{post.title}</div>
       <div className="text-sm text-secondary flex-grow">{post.description}</div>
-      <ul className="flex text-sm text-secondary">
+      <ul className="flex flex-wrap text-sm text-secondary gap-2">
         {post.tags.map((tag: string, index: number) => {
           return (
             <li key={index}>
               <Button
-                onClick={(e) => handleTagClick(e, tag)}
-                extraClasses={classNames({ 'pl-0': index === 0 })}
-                theme="text"
+                onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
+                  handleTagClick(e, tag)
+                }
+                theme="text-p-0"
               >
                 #{tag}
               </Button>

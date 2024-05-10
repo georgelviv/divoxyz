@@ -1,5 +1,6 @@
 import { Post } from '@core/models/core.models';
 import { Button } from '@shared/components/button';
+import FPSWidget from './fps-widget';
 
 interface PostLayoutDemoProps {
   demo: JSX.Element;
@@ -19,6 +20,7 @@ const PostLayoutDemo = ({
   return (
     <div className="h-full">
       <div className="flex justify-end mb-2">
+        {post.showFPS && <FPSWidget />}
         <Button theme="text" icon={'github'} link={linkToGithub} />
         <Button
           theme="text"

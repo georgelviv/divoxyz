@@ -1,4 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
+import {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState
+} from 'react';
 import CVCameraVisual from './cv-camera.visual';
 import { Warning } from '../warning';
 import { CVCameraFrameHandler } from './cv-camera.models';
@@ -7,10 +13,21 @@ interface Props {
   frameHandler: CVCameraFrameHandler;
 }
 
-const CVCamera = ({ frameHandler }: Props) => {
+const CVCamera = forwardRef(({ frameHandler }: Props, ref) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [checked, setChecked] = useState<boolean>(false);
   const [errorLabel, setErrorLabel] = useState<string>('');
+
+  useImperativeHandle(
+    ref,
+    () => {
+      return {
+        width: canvasRef.current.width,
+        height: canvasRef.current.height
+      };
+    },
+    []
+  );
 
   useEffect(() => {
     const visual = new CVCameraVisual(canvasRef.current, frameHandler, () =>
@@ -41,7 +58,7 @@ const CVCamera = ({ frameHandler }: Props) => {
       )}
     </div>
   );
-};
+});
 
 CVCamera.displayName = 'CVCamera';
 
